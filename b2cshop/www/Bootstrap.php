@@ -1,6 +1,6 @@
 <?php
 
-class Bootstrap extends Yaf_Bootstrap_Abstract
+class Bootstrap extends Yaf\Bootstrap_Abstract
 {
     
     /**
@@ -8,7 +8,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
      */
     public function _initConfig()
     {
-        //echo 'dwa';die; 
 //         $dbConfig = new Yaf_Config_Ini(APP_CONF_PATH . "/db.ini", Hlg::environ());
 //         Yaf\Registry::set("appConfig", Yaf_Application::app()->getConfig());
 //         Yaf\Registry::set("dbConfig", $dbConfig);
@@ -19,7 +18,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
      * 
      * @param Yaf\Dispatcher $dispatcher            
      */
-    public function _initPlugin(Yaf_Dispatcher $dispatcher)
+    public function _initPlugin(Yaf\Dispatcher $dispatcher)
     {
         if(!$dispatcher->getRequest()->isCli()){
 //             $restPlugin = new RestPlugin();
@@ -32,14 +31,14 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
     /**
      * 初始化视图
      */
-    public function _initView(Yaf_Dispatcher $dispatcher)
+    public function _initView(Yaf\Dispatcher $dispatcher)
     {
-        $config = new Yaf_Config_Ini(BP. '\conf\app.ini', 'base');
-        $viewPath =$config->get("application")->view->path;   // 输出 "dev.example.com"
-        $myView = new core_view();
-//         $hlgView = new Hlg\View($viewPath);
-        $this->getView()->setLayout("page");
-        Yaf_Dispatcher::getInstance()->setView($myView);
+//         $config = new Yaf\Config\Ini(BP. '\conf\app.ini', 'base');
+//         $viewPath =$config->get("application")->view->path;   // 输出 "dev.example.com"
+//         $myView = new core_view();
+// //         $hlgView = new Hlg\View($viewPath);
+//         $this->getView()->setLayout("page");
+//         Yaf_Dispatcher::getInstance()->setView($myView);
     }
 
 //     /**

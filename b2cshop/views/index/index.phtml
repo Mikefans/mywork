@@ -6,7 +6,7 @@
  <body>
  
   <?php
-$config = new Yaf_Config_Ini(APP_PATH. '\conf\db.ini', 'base');
+$config = new Yaf\Config\Ini(APP_PATH. '/conf/db.ini', 'base');
 echo $config->database->get("params")->host;   // 输出 "dev.example.com"
 echo $config->get("database")->params->dbname; // 输出 "dbname"
   
