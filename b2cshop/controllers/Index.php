@@ -1,6 +1,8 @@
 <?php
-class IndexController extends Yaf\Controller_Abstract {
-   public function indexAction(){
+class IndexController extends Controllers_Abstract {
+   
+   public function indexAction()
+   {
        $this->getView()->assign("content", "Hello World");
    }
 

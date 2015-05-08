@@ -1,17 +1,16 @@
 <?php
-
-class Controller_Abstract extends Yaf_Controller_Abstract
+class Controllers_Abstract extends Yaf\Controller_Abstract
 {
 
     protected $_params = array();
 
     public function init()
     {
-        $this->_filterRequestParams();       
+        $this->_filterRequestParams();
         if ($this->getRequest()->isXmlHttpRequest()) {
             $this->disableView();
         } else {
-            $this->getView()->setTheme(\Yaf\Registry::get("appConfig")->application->view->theme);
+           // $this->getView()->setTheme(\Yaf\Registry::get("appConfig")->application->view->theme);
         }
     }
 
