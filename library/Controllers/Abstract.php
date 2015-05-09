@@ -6,12 +6,9 @@ class Controllers_Abstract extends Yaf\Controller_Abstract
 
     public function init()
     {
+        $moduleName = lcfirst($this->getModuleName());
+        $this->getView()->setScriptPath(APP_PATH. "/views/{$moduleName}");
         $this->_filterRequestParams();
-        if ($this->getRequest()->isXmlHttpRequest()) {
-            $this->disableView();
-        } else {
-           // $this->getView()->setTheme(\Yaf\Registry::get("appConfig")->application->view->theme);
-        }
     }
 
     /**
