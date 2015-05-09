@@ -38,9 +38,9 @@ class AuthPlugin extends Yaf\Plugin_Abstract
             return true;
         }
         if (! $isLoggedId) {
-//             $request->setModuleName("Admin");
+//             $request->setModuleName("Index");
 //             $request->setControllerName("Index");
-//             $request->setActionName("index");
+//             $request->setActionName("login");
         }
     }
 }

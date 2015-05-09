@@ -7,7 +7,7 @@ class Controllers_Abstract extends Yaf\Controller_Abstract
     public function init()
     {
         $moduleName = lcfirst($this->getModuleName());
-        $this->getView()->setScriptPath(APP_PATH. "/views/{$moduleName}");
+        $this->getView()->setScriptPath(APP_PATH. "/views/phtml/{$moduleName}");
         $this->_filterRequestParams();
     }
 

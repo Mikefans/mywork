@@ -1,4 +1,5 @@
 <?php
+echo 'dwa';die;
 error_reporting(E_ALL | E_STRICT);
 
 if (! isset($argv[1])) {
