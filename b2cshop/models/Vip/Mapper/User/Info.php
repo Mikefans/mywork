@@ -1,7 +1,7 @@
 <?php 
 namespace Vip\Mapper\User;
 
-class InfoModel extends Mapper_abstract
+class InfoModel extends \Mapper\Abstracts
 {
     
     protected $_name = 'vip_user_info';

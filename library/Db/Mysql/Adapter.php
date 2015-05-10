@@ -12,6 +12,8 @@ class Adapter
 
     protected $_query;
 
+    const CONNECT_RETRY =3;
+    
     public function __construct()
     {
         $this->connect();
@@ -22,7 +24,7 @@ class Adapter
      */
     public function getConfig()
     {
-        $config = new Yaf\Config\Ini(APP_PATH . '/conf/db.ini', 'base');
+        $config = new \Yaf\Config\Ini(BP. '/conf/db.ini', 'base');
         $config = $config->get("database")->shop;
         return $config->toArray();
     }
@@ -77,6 +79,7 @@ class Adapter
     {
         $query = new Query();
         $query->filter = $this->filter();
+        return $query;
     }
 
     /**
@@ -159,16 +162,6 @@ class Adapter
         return PDO::PARAM_STR;
     }
 
-    /**
-     * 获取table信息
-     */
-    public function tableInfo()
-    {
-        $source = $this->getQuery()->source;
-        $sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" . $source . "'";
-        return $this->query($sql)->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function select($columns = array('*'))
     {
         $columns = is_array($columns) ? $columns : func_get_args();
@@ -177,9 +170,7 @@ class Adapter
     }
 
     /**
-     * 添加where条件,and组合
-     *
-     * @param unknown $conditions            
+     * 添加where条件,and组合       
      */
     public function where($conditions)
     {
@@ -193,15 +184,6 @@ class Adapter
     public function whereOr($conditions)
     {
         $this->getQuery()->whereOr($conditions);
-        return $this;
-    }
-
-    /**
-     * 添加where条件,And (a or b)
-     */
-    public function whereAndOr($conditions)
-    {
-        $this->getQuery()->whereAndOr($conditions);
         return $this;
     }
 
@@ -235,7 +217,7 @@ class Adapter
     }
 
     /**
-     * 获取多条数据(non-PHPdoc)
+     * 获取多条数据
      */
     public function get()
     {

@@ -1,7 +1,7 @@
 <?php
-namespace Model;
+namespace Mapper;
 
-abstract class Mapper_Abstract
+abstract class Abstracts
 {
 
     protected $_connection;
@@ -31,10 +31,46 @@ abstract class Mapper_Abstract
      */
     public static function getInstance()
     {
+        $class = get_called_class();
         if (! isset(static::$_instances[$class])) {
             static::$_instances[$class] = new $class();
         }
         return static::$_instances[$class];
+    }
+
+    public function __call($func, $arguments)
+    {
+        if (in_array($func, $this->_callableMethod, true)) {
+            $db = $this->db();
+            if ($db) {
+                call_user_func_array(array(
+                    $db,
+                    $func
+                ), $arguments);
+            }
+        } else {
+            echo "call undefined method " . $func;
+            die();
+        }
+        return $this;
+    }
+
+    public static function __callstatic($func, $arguments)
+    {
+        if (preg_match('/^where[A-Z][a-zA-Z0-9_]+$/', $func) && $arguments) {
+            $instance = self::getInstance();
+            $db = $instance->db();
+            if ($db) {
+                call_user_func_array(array(
+                    $db,
+                    $func
+                ), $arguments);
+            }
+        } else {
+            echo "call undefined method " . $func;
+            die();
+        }
+        return $instance;
     }
 
     /**
@@ -185,9 +221,9 @@ abstract class Mapper_Abstract
         $adapter = new \Db\Mysql\Adapter();
         $db = $adapter->connect();
         if (! $this->_query) {
-            $this->_query = $db->newQuery();
+            $this->_query = $adapter->newQuery();
         }
-        $db->setQuery($this->_query);
-        return $db;
+        $adapter->setQuery($this->_query);
+        return $adapter;
     }
 }

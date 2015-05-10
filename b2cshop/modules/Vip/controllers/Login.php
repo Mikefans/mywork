@@ -16,6 +16,7 @@ class LoginController extends Controllers_Abstract {
    public function loginAction(){
    //	echo 'dwa';die;
    //$this->getView()->disableView();
+        $params= $this->getParams();
         $service = new \Vip\Service\VipModel();
         $result = $service->login($params);
         var_dump($result);die;
