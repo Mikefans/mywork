@@ -1,84 +1,44 @@
 <?php
-/*
- * mysql数据库操作类 @yuyang
- */
-namespace Hlg\Db\Mysql;
+namespace Db\Mysql;
 
 use PDO;
 use PDOStatement;
 use PDOException;
-use Exception;
-use Hlg\Db\Mysql\Query;
 
-class Adapter extends \Hlg\Db\DataBase
+class Adapter
 {
-
-    protected $_module;
 
     protected $_connection;
 
     protected $_query;
 
-    public $_error;
-
-    /**
-     * 失败重连次数
-     *
-     * @var unknown
-     */
-    const CONNECT_RETRY = 3;
+    public function __construct()
+    {
+        $this->connect();
+    }
 
     /**
      * 获取模块对应的数据库配置
-     *
-     * @param unknown $module            
      */
-    public function getConfig($module)
+    public function getConfig()
     {
-        $config = \Yaf\Registry::get("dbConfig")->database->{$module};
-        if (! $config) {
-            throw new Exception('model_dbname:' . $module . ' not exist');
-        }
-        $this->_module = $module;
+        $config = new Yaf\Config\Ini(APP_PATH . '/conf/db.ini', 'base');
+        $config = $config->get("database")->shop;
         return $config->toArray();
     }
 
     /**
      * pdo连接数据库
-     *
-     * @param unknown $module            
-     * @throws Exception
-     * @return \PDO
      */
-    public function connect($module)
+    public function connect()
     {
-        $config = $this->getConfig($module);
+        $config = $this->getConfig();
         $dsn = 'mysql:host=' . $config['host'] . '; dbname=' . $config['dbname'];
         if (empty($this->_connection)) {
-            $retry = self::CONNECT_RETRY;
-            while ($retry) {
-                $retry --;
-                try {
-                    $this->_connection = new PDO($dsn, $config['username'], $config['password'], array(
-                        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-                    ));
-                    $this->_connection->query("SET NAMES utf8");
-                    break;
-                } catch (PDOException $e) {
-                    $code = $e->getCode();
-                    if (! in_array($code, array(
-                        1031,
-                        1032,
-                        1033,
-                        1045
-                    ))) {
-                        // 如果不是用户名，密码相关错误，失败重连
-                        continue;
-                    }
-                    throw new Exception('pdo connection failed.' . $e->getMessage());
-                    break;
-                }
-            }
+            $this->_connection = new PDO($dsn, $config['username'], $config['password'], array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+            ));
+            $this->_connection->query("SET NAMES utf8");
         }
         return $this->_connection;
     }
@@ -88,8 +48,10 @@ class Adapter extends \Hlg\Db\DataBase
      */
     public function reconnect()
     {
-        $this->close();
-        $this->connect($this->_module);
+        if ($this->_connection) {
+            $this->_connection = null;
+        }
+        $this->connect();
     }
 
     public function filter()
@@ -103,17 +65,6 @@ class Adapter extends \Hlg\Db\DataBase
             if (is_string($val) || ! is_numeric($val)) {
                 $val = $self->_connection->quote($val);
             }
-            if ($like === false) {
-                /*
-                $val = str_replace(array(
-                    '%',
-                    '_'
-                ), array(
-                    '\\%',
-                    '\\_'
-                ), $val);
-                */
-            }
             return $val;
         };
         return $filter;
@@ -126,23 +77,19 @@ class Adapter extends \Hlg\Db\DataBase
     {
         $query = new Query();
         $query->filter = $this->filter();
+    }
+
+    /**
+     * 设置db的query对象           
+     */
+    public function setQuery($query)
+    {
+        $this->_query = $query;       
         return $query;
     }
 
     /**
-     * 设置db的query对象
-     * 
-     * @param unknown $query            
-     */
-    public function setQuery($query)
-    {
-        $this->_query = $query;
-    }
-
-    /**
      * 获取db的query对象
-     * 
-     * @param unknown $query            
      */
     public function getQuery()
     {
@@ -161,11 +108,6 @@ class Adapter extends \Hlg\Db\DataBase
     public function query($sql, $bind = array())
     {
         $sql = trim($sql);
-        if (preg_match("#^(update|delete)#is", $sql)) {
-            if (stripos($sql, "where") === false) {
-                throw new Exception("UPDATE_OR_DELETE_WHERE_IS_EMPTY");
-            }
-        }
         $this->getQuery()->clear(); // 每次运行完一次sql,清理临时变量
         $retry = self::CONNECT_RETRY;
         while ($retry) {
@@ -183,10 +125,7 @@ class Adapter extends \Hlg\Db\DataBase
                     $stmt->bindValue($i, $value, $paramType);
                 }
             }
-            /**
-             * 记录debug日志
-             */
-            $this->addDebugLog($sql,$bind);
+            
             $res = $stmt->execute();
             if ($res === false) {
                 $this->_error = $stmt->errorInfo();
@@ -221,18 +160,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 获取库里的所有tables
-     */
-    public function showTables()
-    {
-        $sql = "show tables";
-        return $this->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * 获取table信息
-     *
-     * @return mixed
      */
     public function tableInfo()
     {
@@ -241,63 +169,6 @@ class Adapter extends \Hlg\Db\DataBase
         return $this->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * 展示某个table所有字段
-     *
-     * @return Ambigous <unknown, PDOStatement>
-     */
-    public function showColumns()
-    {
-        $source = $this->getQuery()->source;
-        $dbName = $this->getConfig($this->_module)['dbname'];
-        $sql = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $source . "' AND TABLE_SCHEMA = '" . $dbName . "'";
-        return $this->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * 返回最后插入的id
-     */
-    public function lastInsertId()
-    {
-        return $this->_connection->lastInsertId();
-    }
-
-    /**
-     * 获取自增唯一的序列id
-     *
-     * @param unknown $sequenceTable
-     *            序列表
-     * @param number $step            
-     * @return string
-     */
-    public function sequenceId($sequenceTable, $step)
-    {
-        $sequenceKey = $this->getQuery()->source;
-        $sql = "UPDATE " . $sequenceTable . " SET id=LAST_INSERT_ID(id+" . $step . ") WHERE sequence_key='" . $sequenceKey . "'";
-        $this->query($sql);
-        return $this->lastInsertId();
-    }
-
-    /**
-     * 调用存储过程
-     *
-     * @param unknown $name            
-     * @param unknown $params            
-     */
-    public function callProcedure($name, $params = array())
-    {
-        $param = implode(",", $params);
-        $procedure = "CALL " . $name . "(" . $param . ")";
-        $stmt = $this->query($procedure);
-        return $stmt->fetch();
-    }
-
-    /**
-     * Set the columns to be selected.
-     *
-     * @param array $columns            
-     * @return $this
-     */
     public function select($columns = array('*'))
     {
         $columns = is_array($columns) ? $columns : func_get_args();
@@ -305,17 +176,10 @@ class Adapter extends \Hlg\Db\DataBase
         return $this;
     }
 
-    public function distinct()
-    {
-        $this->getQuery()->distinct();
-        return $this;
-    }
-
     /**
      * 添加where条件,and组合
      *
      * @param unknown $conditions            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function where($conditions)
     {
@@ -325,9 +189,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * 添加where条件,Or (a and b)
-     *
-     * @param unknown $conditions            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function whereOr($conditions)
     {
@@ -337,9 +198,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * 添加where条件,And (a or b)
-     *
-     * @param unknown $conditions            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function whereAndOr($conditions)
     {
@@ -349,9 +207,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * in 条件拼装
-     * 
-     * @param unknown $conditions            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function whereIn($conditions)
     {
@@ -361,9 +216,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * not in 条件拼装
-     * 
-     * @param unknown $conditions            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function whereNotIn($conditions)
     {
@@ -372,41 +224,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * left join拼装
-     *
-     * @param unknown $table
-     *            join的table
-     * @param unknown $alias
-     *            别名
-     * @param unknown $condition
-     *            连接条件
-     */
-    public function leftJoin($table, $alias, $condition)
-    {
-        $this->getQuery()->leftJoin($table, $alias, $condition);
-        return $this;
-    }
-
-    /**
-     * inner join拼装
-     *
-     * @param unknown $table
-     *            join的table
-     * @param unknown $alias
-     *            别名
-     * @param unknown $condition
-     *            连接条件
-     */
-    public function innerJoin($table, $alias, $condition)
-    {
-        $this->getQuery()->innerJoin($table, $alias, $condition);
-        return $this;
-    }
-
-    /**
      * 获取一条数据
-     *
-     * @return mixed
      */
     public function first()
     {
@@ -418,8 +236,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * 获取多条数据(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::get()
      */
     public function get()
     {
@@ -443,23 +259,6 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 获取结果集的累加值
-     * @param unknown $field
-     * @param string $distinct
-     * @return number
-     */
-    public function sum($field,$distinct = false){
-        $field = $distinct?"distinct ".$field:$field;
-        $this->select("sum(" . $field . ")");
-        $result = $this->first();
-        if (empty($result)) {
-            return 0;
-        }
-        $item = array_values($result);
-        return (int)$item[0];
-    }
-    
-    /**
      * 获取结果集的统计数目
      */
     public function count($field = null)
@@ -475,13 +274,11 @@ class Adapter extends \Hlg\Db\DataBase
             return 0;
         }
         $item = array_values($result);
-        return (int)$item[0];
+        return (int) $item[0];
     }
 
     /**
-     * 获取结果集中某一个字段的列表(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::lists()
+     * 获取结果集中某一个字段的列表
      */
     public function lists($column)
     {
@@ -501,10 +298,6 @@ class Adapter extends \Hlg\Db\DataBase
 
     /**
      * 增加order by 查询
-     *
-     * @param unknown $column            
-     * @param string $order            
-     * @return \Hlg\Db\Mysql\Adapter
      */
     public function orderBy($column, $order = "DESC")
     {
@@ -515,21 +308,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 增加group by 查询
-     *
-     * @param unknown $column            
-     * @return \Hlg\Db\Mysql\Adapter
-     */
-    public function groupBy($column)
-    {
-        $this->getQuery()->groupBy($column);
-        return $this;
-    }
-
-    /**
      * 插入(单条/多条)数据(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::insert()
      */
     public function insert($data)
     {
@@ -541,9 +320,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 替换插入数据(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::replace()
+     * 替换插入数据
      */
     public function replace($data)
     {
@@ -554,9 +331,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 删除数据(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::delete()
+     * 删除数据
      */
     public function delete($conditions)
     {
@@ -566,9 +341,7 @@ class Adapter extends \Hlg\Db\DataBase
     }
 
     /**
-     * 更新数据(non-PHPdoc)
-     *
-     * @see \Hlg\Db\Database::update()
+     * 更新数据
      */
     public function update($data, $conditions)
     {
@@ -590,17 +363,5 @@ class Adapter extends \Hlg\Db\DataBase
     public function limit($count)
     {
         return $this->getQuery()->limit($count);
-    }
-
-    public function error()
-    {
-        return $this->_error;
-    }
-
-    public function close()
-    {
-        if ($this->_connection) {
-            $this->_connection = null;
-        }
     }
 }

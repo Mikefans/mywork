@@ -1,8 +1,5 @@
 <?php
-/*
- * sql拼装类 @yuyang
- */
-namespace Hlg\Db\Mysql;
+namespace Db\Mysql;
 
 class Query
 {
@@ -134,11 +131,6 @@ class Query
 
     /**
      * where语句拼装
-     *
-     * @param unknown $conditions            
-     * @param string $type            
-     * @param string $bind            
-     * @return \Hlg\Db\Mysql\Query
      */
     public function where($conditions, $type = 'and', $bind = false)
     {
@@ -150,42 +142,6 @@ class Query
         $where = $this->_compileWhere($conditions, ' and ');
         $this->_joinWhere($where, $type, $bind);
         return $this;
-    }
-
-    /**
-     * left join 拼装
-     * 
-     * @param unknown $table            
-     * @param unknown $alias            
-     * @param unknown $pKey
-     *            主表关联主键
-     * @param unknown $fKey
-     *            关联外间
-     */
-    public function leftJoin($table, $alias, $condition)
-    {
-        $joinGrammer = new Grammer\Join();
-        $joinGrammer->leftJoin($table, $alias);
-        $joinGrammer->on($condition);
-        $this->joinConditions[] = $joinGrammer->getGrammer();
-    }
-
-    /**
-     * inner join 拼装
-     * 
-     * @param unknown $table            
-     * @param unknown $alias            
-     * @param unknown $pKey
-     *            主表关联主键
-     * @param unknown $fKey
-     *            关联外间
-     */
-    public function innerJoin($table, $alias, $condition)
-    {
-        $joinGrammer = new Grammer\Join();
-        $joinGrammer->innerJoin($table, $alias);
-        $joinGrammer->on($condition);
-        $this->joinConditions[] = $joinGrammer->getGrammer();
     }
 
     public function filter($val, $like = false)
@@ -226,9 +182,6 @@ class Query
 
     /**
      * 绑定新的query对象
-     *
-     * @param unknown $bindFunc            
-     * @return string
      */
     private function _bindQuery($bindFunc)
     {
@@ -263,7 +216,7 @@ class Query
                 }
                 if (is_array($val)) {
                     if (count($val) != 2) {
-                        throw new \Exception("Value must be provided.");
+                        echo "Value must be provided.";die;
                     }
                     list ($operator, $value) = $val;
                 } else {
@@ -273,7 +226,7 @@ class Query
                     );
                 }
                 if ($this->invalidOperatorAndValue($operator, $value)) {
-                    throw new \Exception("Value must be provided.");
+                    echo  "Value must be provided";die;
                 }
                 $formatData[] = $this->operator($operator, $key, $value);
             }
@@ -304,7 +257,7 @@ class Query
     public function select()
     {
         if (empty($this->source)) {
-            throw new \Exception("please init select table");
+            echo "please init select table";die;
         }
         $source = $this->joinConditions ? "`" . $this->source . "` as main_table" : "`" . $this->source . "`";
         $fields = $this->fields ? "{$this->fields}" : '*';
@@ -348,10 +301,6 @@ class Query
 
     /**
      * 插入一条或多条新数据
-     *
-     * @param unknown $data            
-     * @param unknown $type            
-     * @return Ambigous <string, multitype:>|string
      */
     function insert($data, $type)
     {
@@ -374,10 +323,6 @@ class Query
 
     /**
      * 批量插入多条新数据
-     *
-     * @param unknown $data            
-     * @param unknown $type            
-     * @return multitype: string
      */
     function batchInsert($data, $type)
     {
@@ -397,11 +342,6 @@ class Query
 
     /**
      * 更新数据
-     *
-     * @param unknown $data            
-     * @param unknown $conditions            
-     * @throws \Exception
-     * @return string
      */
     function update($data, $conditions)
     {
@@ -417,7 +357,7 @@ class Query
         if ($conditions)
             $this->where($conditions, "and");
         if (empty($this->where)) {
-            throw new \Exception("UPDATE_OR_DELETE_WHERE_IS_EMPTY");
+            echo "UPDATE_OR_DELETE_WHERE_IS_EMPTY"; die;
         }
         $sql = "UPDATE {$this->source} SET " . implode(', ', $set) . " WHERE {$this->where}";
         if(! empty($this->limit)){
@@ -432,7 +372,7 @@ class Query
         if ($conditions)
             $this->where($conditions, "and");
         if (empty($this->where)) {
-            throw new \Exception("UPDATE_OR_DELETE_WHERE_IS_EMPTY");
+            echo "UPDATE_OR_DELETE_WHERE_IS_EMPTY"; die;
         }
         $sql = "DELETE FROM {$this->source} where {$this->where}";
         if(! empty($this->limit)){
@@ -444,17 +384,11 @@ class Query
 
     /**
      * Add a binding to the query.
-     *
-     * @param mixed $value            
-     * @param string $type            
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
      */
     public function addBinding($value, $type = 'where')
     {
         if (! array_key_exists($type, $this->bindings)) {
-            throw new \Exception("Invalid binding type: {$type}.");
+            echo "Invalid binding type: {$type}.";die;
         }
         
         if (is_array($value)) {
@@ -472,7 +406,7 @@ class Query
     public function getBinding($type)
     {
         if (! array_key_exists($type, $this->bindings)) {
-            throw new \Exception("Invalid binding type: {$type}.");
+            echo "Invalid binding type: {$type}.";die;
         }
         
         return $this->bindings[$type];
@@ -493,10 +427,6 @@ class Query
 
     /**
      * Determine if the given operator and value combination is legal.
-     *
-     * @param string $operator            
-     * @param mixed $value            
-     * @return bool
      */
     protected function invalidOperatorAndValue($operator, $value)
     {

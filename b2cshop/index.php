@@ -1,4 +1,5 @@
 <?php
+phpinfo();die;
 define("APP_PATH",  realpath(dirname(__FILE__))); //网站路径
 define("BP", realpath(dirname(__FILE__) . '/../')); //基础路径
 define("PAGE", realpath(dirname(__FILE__) . '/../views/page/')); //网页布局

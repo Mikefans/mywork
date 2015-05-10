@@ -1,5 +1,4 @@
 <?php
-echo 'dwa';die;
 error_reporting(E_ALL | E_STRICT);
 
 if (! isset($argv[1])) {
@@ -16,7 +15,7 @@ if (isset($argv[2])) {
 if (isset($argv[3])){
     $config['namespace_prefix'] = $argv[3];
 } 
-
+var_dump($config);die;
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', realpath(dirname(dirname(__DIR__)) . DS));
@@ -28,6 +27,7 @@ $app->bootstrap()->execute("main");
 function main()
 {
     global $config;
+    var_dump($config);die;
     $builder = new Hlg\Model\Builder();
     $builder->run($config);
 }

@@ -1,14 +1,9 @@
 <?php
-/**
- * model自动生成类文件
- * @author yuyang
- *
- */
+
 namespace Hlg\Model;
 
 class Builder
 {
-
     /**
      * 解析配置生成model文件
      * 
