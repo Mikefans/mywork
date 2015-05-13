@@ -1,3 +1,24 @@
-<link rel ='stylesheet' href= CSS.'left.css' type = "text/css">
-<div class='left'>
+<?php 
+$catalogueMapper = \Shop\Mapper\Left\CatalogueModel::getInstance();
+$result = $catalogueMapper->getLists();
+?>
+<link rel ='stylesheet' href= '/views/page/css/left.css' type = "text/css">
+<div class = 'left'>
+<div class="left-div">
+<ul>
+<li class= "menu" id = 'left-home'>首页</li>
+<?php 
+foreach ($result as $res){
+	echo '<li class = menu>'.$res['cata_name'];
+	if(!empty($res['cata_next'])){
+        echo '<ul class=next-menu>';
+		foreach (json_decode($res['cata_next']) as $name){
+			echo '<li>'.$name.'</li>';
+		}
+		echo '</ul></li>';
+	}
+}
+?>
+</ul>
+</div>
 </div>

@@ -7,7 +7,6 @@ class IndexController extends Controllers_Abstract
     {
         $this->disableView();
         $this->redirect('/home/index/index');
-        $this->getView()->assign("content", "Hello World");
     }
 
     public function loginAction()

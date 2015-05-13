@@ -4,6 +4,7 @@ $user = $session->m_user;
 ?>
 <link rel ='stylesheet' href= '/views/page/css/header.css' type = "text/css">
 <div class ='header' >
+<div class ='body-div'>
 <?php if (empty($user)):?>
 <div style='float: left' > <a href= '/index/login'>请登录！</a>免费注册</div>
 <?php else:?>
@@ -11,3 +12,7 @@ $user = $session->m_user;
 <?php endif;?>
 <div style='float: right'>购物车   我的收藏   会员中心</div>
 </div>
+</div>
+
+<script type="text/javascript"  src=" /views/js/jquery-2.1.1.js"></script>
+<script type="text/javascript"  src=" /views/page/js/header.js"></script>

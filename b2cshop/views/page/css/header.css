@@ -1,8 +1,21 @@
 .header {
-	background-color:#F5E2EC;
+	background-color:blue;
 	width:100%;
 	height:30px;
 }
-.header a {
+
+body a {
 	text-decoration:none;
+}
+
+body{
+	margin-top: 0px;
+	margin-left :0px;
+	margin-right :0px;'	
+}
+
+.body-div{
+	margin-left:auto;
+	margin-right:auto;
+	width:1000px;	
 }
