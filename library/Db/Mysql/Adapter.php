@@ -138,7 +138,7 @@ class Adapter
                     continue;
                 } else {
                     $msg = isset($this->_error[2]) ? $this->_error[2] : "";
-                    throw new Exception('stmt execute error:' . $msg . "\n" . '; [#SQL#]:' . $sql . ";bind:" . var_export($bind, true));
+                    echo 'stmt execute error:' . $msg . "\n" . '; [#SQL#]:' . $sql . ";bind:" . var_export($bind, true);die;
                 }
             }
             return $stmt;

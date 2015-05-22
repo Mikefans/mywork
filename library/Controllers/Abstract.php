@@ -99,4 +99,31 @@ class Controllers_Abstract extends Yaf\Controller_Abstract
         }
         return $newArray;
     }
+    
+    public function response($res)
+    {
+        if (empty($this->_result)){
+            $this->_result = array(
+                'status' => 'success',
+                'result' =>$res
+            );
+            $result = json_encode($this->_result, JSON_UNESCAPED_UNICODE);
+            $this->_response($result);
+        }
+    }
+    
+    public function errorResponse($msg)
+    {
+        $this->_result = array(
+            'status' => 'error',
+            'desc' => $msg
+        );
+        $result = json_encode($this->_result, JSON_UNESCAPED_UNICODE);
+        if (! $this->getRequest()->isCli()) {
+            $this->getResponse()->setHeader("Content-Type", "application/json;charset=utf-8");
+        }
+        $this->getResponse()->response();
+        $this->getResponse()->setBody($result);
+        echo $result;die;
+    }
 }

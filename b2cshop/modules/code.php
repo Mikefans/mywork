@@ -24,6 +24,6 @@ for ($i = 0; $i < 300; $i ++)         // 加入干扰象素
  
 ImagePNG($im);
 ImageDestroy($im);
-$session->fx_login_code = $vcodes;
+$session->login_code = $vcodes;
 
 ?>
