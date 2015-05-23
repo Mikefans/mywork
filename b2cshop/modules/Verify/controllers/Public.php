@@ -18,10 +18,14 @@ class PublicController extends Controllers_Abstract {
         $params = $this->getParams();
         $session = \Yaf\Session::getInstance();
         $code = $session->login_code;
+        if (empty($code)){
+            \Core::setError('请刷新验证码');
+        }
         if ($code != $params['verify_code']){
+            $session->del('login_code');
             \Core::setError('验证码错误');
         }
-		$mapper = \Vip\Mapper\User\InfoModel::getInstance();
+		$mapper = \Vip\Mapper\UserModel::getInstance();
 		$result = $mapper->login($params);
 		$this->response($result);
    }
@@ -29,7 +33,7 @@ class PublicController extends Controllers_Abstract {
    public function registerAction(){
        $this->disableView();
        $params = $this->getParams();
-	   $mapper = \Vip\Mapper\User\InfoModel::getInstance();
+	   $mapper = \Vip\Mapper\UserModel::getInstance();
 	   $result = $mapper->register($params);
        $this->response($result);
    }
