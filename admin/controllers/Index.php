@@ -2,12 +2,14 @@
 class IndexController extends Controllers_Abstract
 {
    public function indexAction(){
+       echo 'dw1a';die;
        $this->getView()->assign("content", "Hello World");
        $this->redirect('/home/index/index');
    }
    
    public function loginAction()
    {
+       header("location:/home/login/index");
        $params = $this->getParams();
         $this->disableView();
         $params = $this->getParams();
@@ -20,7 +22,7 @@ class IndexController extends Controllers_Abstract
             $session->del('login_code');
             \Core::setError('验证码错误');
         }
-		$mapper = \Vip\Mapper\UserModel::getInstance();
+		$mapper = \Admin\Mapper\AdminModel::getInstance();
 		$result = $mapper->login($params);
 		$this->response($result);
    }
