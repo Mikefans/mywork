@@ -4,7 +4,7 @@ class PublicController extends Controllers_Abstract {
     
    public function loginAction() 
    {
-       $this->getView()->assign("content", "Hello World");
+      // $this->getView()->assign("content", "Hello World");
    }
    
    public function logoutAction(){

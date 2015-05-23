@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+padding:0;
+marigin :0;
+background-image:url('/views/images/login.jpg');
+background-size:100%,100%;
+background-repeat: no-repeat; 
+}
+
+.ur{
+	height:37px;
+	border:0;
+	width:236px;
+	margin-top:30px;
+	background:url(http://keleyi.com/keleyi/phtml/divcss/21/images/user.png) no-repeat;
+	padding-left:10px;
+	font-size:16pt;
+	font-family:Arial, Helvetica, sans-serif;
+	color:white;
+}
+
+.pw{
+	height:37px;
+	border:0;
+	width:236px;
+	margin-top:30px;
+	background:url(http://keleyi.com/keleyi/phtml/divcss/21/images/password.png) no-repeat;
+	padding-left:10px;
+	font-size:16pt;
+	font-family:Arial, Helvetica, sans-serif;
+	color:white;
+}
+
+.verify-text {
+	margin-top:30px;
+	width : 115px;
+	height : 37px;
+	font-size:16pt;
+}
+.verify-img{
+	margin-top:30px;
+	margin-left:20px;
+	width : 70px;
+	height : 30px;
+}
+
+/*
+* 登陆
+*/
+.login-div {
+	margin-top :100px;
+	margin-left:auto;
+	margin-right:auto;
+	width : 600px;
+	height : 500px;
+	text-align:center;
+}
+
+.login-submit {
+	margin-top:30px;
+	width: 100px;
+	height : 37px;
+	font-size:16pt;
+}
+
+.div-title{
+    color :white;
+	margin-top:30px;
+	font-size : 30pt;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+</style>
+</head>
+<title>管理员登陆</title>
+<body class = 'body'>
+<div class="login-div"><br/><br/>
+<span class="div-title">管理员登陆</span><br/>
+<input id="adminname" class="ur" /><br/>
+<input id="password" type="password"  class="pw" /><br/>
+<input id="verifycode" class = "verify-text" /><img src="/modules/code.php" class="verify-img"></img>
+<br/><input type="button" value="登陆" class="login-submit" />
+</div>
+</body>
+
+<script type="text/javascript"  src=" /views/js/jquery-2.1.1.js"></script>
+<script type="text/javascript"  src=" /views/page/js/dsdialog.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".verify-img").click(function(){
+		  $(this).attr("src",function(){return this.src+"?"});
+		  });
+//用户提交登陆
+$('.login-submit').click(function(){
+	  var userName = $("#adminname").val();
+	  var password = $("#password").val();
+	  var code = $("#verifycode").val();
+	  if ( userName =='' || password == '' || code == ''){
+		  alert('以上内容不能为空');
+	  }else{
+		  $.post("/index/login",
+				  {
+				    user_name:userName,
+				    pass_word : password,
+				    verify_code : code
+				  },
+				  function(data,status){
+					  if (data.status == 'error') {
+						  alert(data.desc);
+					  }
+					  if (status !== 'success')
+					  {
+						  alert('服务器错误');
+					  }
+					  if (data.status == 'success'){
+						  location.href='/home/index/index';
+					  }
+				  });
+	  }
+});
+});
+</script>
+</html>

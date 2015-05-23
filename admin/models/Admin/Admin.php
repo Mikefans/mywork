@@ -1,12 +1,12 @@
 <?php 
-namespace Vip\Mapper;
+namespace Admin;
 
-class UserModel extends \Mapper\Abstracts
+class AdminModel extends \Mapper\Abstracts
 {
     
-    protected $_name = 'vip_user';
+    protected $_name = 'admin_admin';
     
-    protected $_primaryKey ='user_id';
+    protected $_primaryKey ='admin_id';
     
     public function getTableName()
     {
@@ -15,7 +15,8 @@ class UserModel extends \Mapper\Abstracts
     
     public function login($params)
     {
-        $name = $params['admin_name'];
+        $session = \Yaf\Session::getInstance();
+        $name = $params['user_name'];
         $pwd = $params['pass_word'];
     	$result = $this->where(array(
     		'admin_name' => $name,
@@ -23,11 +24,13 @@ class UserModel extends \Mapper\Abstracts
     	))
     	   ->first();
     	if (empty($result)){
-    	    \Core::setError('用户名或密码错误');
+    	    $session->del('login_code');
+    	    \Core::setError('用户名或密码错误1');
     	}
     	$pwds = $result['admin_passwd'];
     	if ($pwds != md5($pwd)){
-    		\Core::setError('用户名或密码错误');
+    	    $session->del('login_code');
+    		\Core::setError('用户名或密码错误11');
     	}
     	$session = \Yaf\Session::getInstance();
     	$session->m_admin = $result;

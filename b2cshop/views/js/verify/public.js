@@ -84,7 +84,7 @@ $(document).ready(function(){
 		  var userName = $("#username").val();
 		  var password = $("#password").val();
 		  var code = $("#verifycode").val();
-		  if ( userName =='' || user_email == '' || code == ''){
+		  if ( userName =='' || password == '' || code == ''){
 			  ds.dialog({
 				   title : '消息提示',
 				   content : '以上内容不能为空',

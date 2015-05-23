@@ -10,7 +10,7 @@ class Core
 	}
 	
 	public function setError($msg){
-	    header("location:/index/setError");
+	    header("location:/index/error?msg=$msg");die;
 // 	     $result = (object)array(
 //             'status' => 'error',
 //             'desc' => $msg

@@ -1,24 +1,36 @@
-<?php 
-$catalogueMapper = \Shop\Mapper\Left\CatalogueModel::getInstance();
-$result = $catalogueMapper->getLists();
-?>
+
 <link rel ='stylesheet' href= '/views/page/css/left.css' type = "text/css">
-<div class = 'left'>
-<div class="left-div">
-<ul>
-<li class= "menu" id = 'left-home'>首页</li>
-<?php 
-foreach ($result as $res){
-	echo '<li class = menu>'.$res['cata_name'];
-	if(!empty($res['cata_next'])){
-        echo '<ul class=next-menu>';
-		foreach (json_decode($res['cata_next']) as $name){
-			echo '<li>'.$name.'</li>';
-		}
-		echo '</ul></li>';
-	}
-}
-?>
+<div class = 'left-menu'>
+<ul >
+<li class = "menu-li">
+<div class = 'main-menu' >订单管理</div>
+<div class = 'next-menu'>
+<ul ><li id ="order-look">查看订单</li><li id="order-rate">查看评价</li></ul></div>
+</li>
+
+<li class = "menu-li">
+<div class = 'main-menu'>会员管理</div>
+<div class = 'next-menu'>
+<ul><li id="vip-look">查看会员</li><li id='vip-message'>查看留言</li><li id= 'vip-money'>查看退款</li></ul></div>
+</li>
+
+<li class = "menu-li">
+<div class = 'main-menu'>商品管理</div>
+<div class = 'next-menu'>
+<ul ><li id='item-cate'>类目管理</li><li id='cate-add'>添加类目</li><li id='item-look'>查看商品</li><li id='item-add'>添加商品</li></ul></div>
+</li>
+
+<li class = "menu-li">
+<div class = 'main-menu'>系统设置</div>
+<div class = 'next-menu'>
+<ul><li id='system-set'>系统设计</li></ul></div>
+</li>
+
+<li class = "menu-li">
+<div class = 'main-menu'>数据库管理</div>
+<div class ='next-menu'>
+<ul ><li id='db-backup'>数据库备份</li><li id='db-sql'>sql查询</li></ul></div>
+</li>
+
 </ul>
-</div>
 </div>
