@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>登陆</title>
+</head>
+<link rel ='stylesheet' href= '/views/css/verify/public.css' type = "text/css">
+<body >
+<?php include_once PAGE . DS.'header.phtml';?>
+<div class = 'body-div'>
+
+<div class="login-div"><br/><br/>
+<span class="div-title">用户登陆</span><br/>
+<input id="username" class="ur" /><br/>
+<input id="password" type="password"  class="pw" /><br/>
+<input id="verifycode" class = "verify-text" /><img src="/modules/code.php" class="verify-img"></img>
+<br/><input type="button" value="登陆" class="login-submit" />
+<a href ="javascript:;" class = 'forget-password'>忘记密码</a><a href ="javascript:;" class = 'register-free'> 免费注册</a>
+</div>
+
+<!--  注册-->
+<div class = "register-div">
+<br>
+<span  class="div-title">用户注册</span>
+<br/>
+<form id = "register-form">
+<table  width="100%"><tr><td class='register-biaoshi'>
+用户名：</td><td><input type ="text" id = "user_name" class = "register-input"/></td></tr><tr><td class='register-biaoshi'>
+邮箱：</td><td><input type ="text" id = "user_email" class = "register-input"/></td></tr><tr><td class='register-biaoshi'>
+手机号：</td><td><input type ="text" id = "user_mobile" class = "register-input"/></td></tr><tr><td class='register-biaoshi'>
+密码：</td><td><input type ="password" id = "pass_word" class = "register-input"/></td></tr><tr><td class='register-biaoshi'>
+再次输入密码：</td><td><input type ="password" id = "pass_words" class = "register-input"/></td></tr>
+</table>
+</form>
+<input type="button" value="注册" class="register-submit" />
+<a href ="javascript:;" class ="back-login">返回登录</a>
+</div>
+
+<!-- 找回密码-->
+<div class ="seapass-div">
+<br/>
+<span  class="div-title">找回密码</span>
+<br/>
+<ul>
+<li>用户名：<input type ="text" id = "u_name" class = "reset-input"/></li>
+<li>
+邮箱号：<input type ="text" id = "u_email" class = "reset-input"/></li>
+<li><br></li>
+<li>
+<input type ="button" value = "找回密码" class = "seapass-submit"/><a href ="javascript:;" class ="rback-login">  返回登录</a>
+</li>
+<ul>
+</div>
+
+</div>
+</body>
+</html>
+<script type="text/javascript"  src=" /views/js/verify/public.js"></script>

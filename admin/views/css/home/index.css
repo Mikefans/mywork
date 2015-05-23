@@ -1,0 +1,45 @@
+.left-favorite {
+	float :left;
+	width : 180px;
+	height : 600px;
+	background:#F5E2EC;
+	margin-top : 10px;
+}
+
+.home-right{
+	float : right;
+	width : 800px;
+	height : 1000px;
+	margin-left : 10px;
+	margin-top : 10px;
+	background : #F5E2EC;
+}
+
+.home-new {
+	width:100%;
+	height :300px;
+	background : #DC2233;
+	margin-bottom :10px;
+}
+
+.home-favorite {
+	width:100%;
+	height :300px;
+	background : #DC2233;
+	margin-bottom :10px;
+}
+
+.home-tuijian {
+	width:100%;
+	height :300px;
+	background : #DC2233;
+	margin-bottom :10px;
+}
+
+.home-lanmu {
+	width :100%;
+	text-align :left;
+	font-weight:bold;
+	font-size : 16pt;
+	color : bule;
+}

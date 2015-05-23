@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* ds.dialog */
+.ds_dialog{ color:#333; font:12px/1.5 "Microsoft Yahei",Arial; position:absolute; left:44%; top:44%; z-index:1999; outline:0;}
+.ds_dialog, .ds_dialog_border, .ds_dialog_panel .ds_dialog_title, .ds_dialog_title h3{ margin:0; padding:0;}
+.ds_dialog_border, .ds_dialog_panel{ border-collapse:collapse; margin:0; padding:0;}
+.ds_dialog_tl, .ds_dialog_tc, .ds_dialog_tr, .ds_dialog_ml, .ds_dialog_mr, .ds_dialog_bl, .ds_dialog_bc, .ds_dialog_br{ background:#000; background:rgba(0,0,0,.5); margin:0; padding:0; filter:Alpha(opacity=50);}
+.ds_dialog_tl, .ds_dialog_tr, .ds_dialog_bl, .ds_dialog_br{ height:8px; width:8px;}
+.ds_dialog_inner{ background:#fff; border-top:1px solid #7697d0; position:relative;}
+.ds_dialog_header{ vertical-align:top;}
+.ds_dialog_title{ background:#476db9; border-bottom:1px solid #476db9; height:34px;}
+.ds_dialog_title h3{ cursor:default; color:#999; font-size:12px; font-weight:normal; line-height:34px; padding:0 30px 0 16px; height:29px; white-space:nowrap;}
+.ds_dialog_active .ds_dialog_title h3{ color:#FFF;}
+.ds_dialog_active .ds_dialog_title h3 span.sadIcon{ display:inline-block; background:url(../images/sadIcon_23.png) no-repeat 0 3px; padding-left:30px; height:29px; width:23px;}
+.ds_dialog_close{ height:24px; width:24px; position:absolute; right:10px; top:6px;}
+.ds_dialog_close a{ display:block; color:#FFF; font:26px/24px Arial,Helvetica; height:24px; overflow:hidden; text-align:center; text-decoration:none; text-shadow:0 -1px 0 #395ba1;}
+.ds_dialog_close a:hover{ color:#C72015; text-decoration:none;}
+.ds_dialog_icon{ padding:10px 0 10px 10px; vertical-align:middle;}
+.ds_dialog_icon .ds_dialog_icon_bg{ display:block; background:none no-repeat 50% 50%; height:40px; width:40px;}
+.ds_dialog .ds_dialog_buttons{ background:#FAFAFA; border-top:1px solid #F0F0F0; font-size:0; padding:8px; white-space:nowrap; text-align:right;}
+.ds_dialog_buttons .ds_dialog_yes{ background:#6089dc; background:-moz-linear-gradient(top, #6089dc 0%, #496eba 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#6089dc), color-stop(100%,#496eba)); background:-webkit-linear-gradient(top, #6089dc 0%,#496eba 100%); background:-o-linear-gradient(top, #6089dc 0%,#496eba 100%); background:-ms-linear-gradient(top, #6089dc 0%,#496eba 100%); background:linear-gradient(to bottom, #6089dc 0%,#496eba 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6089dc', endColorstr='#496eba',GradientType=0); border-color:#5378c3; box-shadow:inset 0 1px 0 #90b3fb; color:#fff; text-shadow:0 -1px 0 #5378c3;}
+.ds_dialog_buttons .ds_dialog_yes:hover{ background:#6f9cf5; background:-moz-linear-gradient(top, #6f9cf5 0%, #5880d0 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#6f9cf5), color-stop(100%,#5880d0)); background:-webkit-linear-gradient(top, #6f9cf5 0%,#5880d0 100%); background:-o-linear-gradient(top, #6f9cf5 0%,#5880d0 100%); background:-ms-linear-gradient(top, #6f9cf5 0%,#5880d0 100%); background:linear-gradient(to bottom, #6f9cf5 0%,#5880d0 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6f9cf5', endColorstr='#5880d0',GradientType=0);}
+.ds_dialog_buttons .ds_dialog_yes:active{ border-color:#1C6A9E; background:-moz-linear-gradient(top, #2288CC 0%, #33BBEE 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#2288CC), color-stop(100%,#33BBEE)); background:-webkit-linear-gradient(top, #2288CC 0%,#33BBEE 100%); background:-o-linear-gradient(top, #2288CC 0%,#33BBEE 100%); background:-ms-linear-gradient(top, #2288CC 0%,#33BBEE 100%); background:linear-gradient(to bottom, #2288CC 0%,#33BBEE 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2288CC', endColorstr='#33BBEE',GradientType=0);}
+.ds_dialog_buttons button:disabled, .ds_dialog_buttons .disabled, .ds_dialog_buttons .disabled:hover, .ds_dialog_buttons .disabled:focus, .ds_dialog_buttons .disabled:active{ 
+	background:#E9E9E9; 
+	border-color:#C6C6C6;
+	color:#AAA;
+	cursor:default;
+	box-shadow:inset 0 0 1px #FCFCFC; 
+	text-shadow:0 1px 0 #fff; 
+	pointer-events:none; 
+	outline:0; 
+	filter:none;
+}

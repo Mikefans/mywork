@@ -1,0 +1,33 @@
+.goods-info {
+	margin-top : 10px;
+	float :left ;
+	width : 800px;
+	height : 500px;
+	background:red;
+}
+
+.goods-right {
+	float:right;
+	margin-top : 10px;
+	margin-left : 20px;
+	width : 180px;
+	height : 500px;
+	background:red;
+}
+
+.goods-left {
+	float :left;
+	margin-top : 10px;
+	margin-right : 20px;
+	width : 180px;
+	height : 500px;
+	background:red;
+}
+
+.goods-description {
+	margin-top : 10px;
+	float:left;
+	width : 800px;
+	background:red;
+	height : 1000px;
+}
