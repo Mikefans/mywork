@@ -1,0 +1,31 @@
+<link rel ='stylesheet' href= '/views/css/item/category.css' type = "text/css">
+
+<div class ='cate-list-div'>
+
+<div class='cate-lists-divs'><br/>
+<ul class ='cate-list-ul'>
+<?php 
+if (!empty($result)){
+	foreach ($result as $key => $res){
+        echo "<li class=cate-list-li id =$res[cate_id]>";
+	   echo "<input type=text value=$res[cate_name] class=father-cate />".
+	   "<span class=cate-list-second>查看二级类目</span><span class=cate-list-del id =$res[cate_id]>删除此类目</span>".
+	   "<span class=cate-list-second-add id =$res[cate_id] >添加一个二级类目</span>".
+	   "<span class=save-list-new id =$res[cate_id] >保存新增</span>".
+	   "<span class=del-list-new id =$res[cate_id] >删除新增</span>";
+	   if (!empty($res['n_cate'])){
+           echo "<ul>";
+	   	   foreach ($res['n_cate'] as $nCate){
+	   	   	echo "<li id =$res[cate_id] ><input type=text value=$nCate[cate_name] class=next-cate id =$nCate[cate_id] />".
+	   	   	"<span class=cate-list-del id =$nCate[cate_id]>删除此类目</span></li>";
+	   	   }
+	   	   echo "</ul></li>";
+	   }
+	   
+	}
+}
+?>
+</ul>
+</div>
+</div>
+<script type="text/javascript"  src=" /views/js/item/category.js"></script>

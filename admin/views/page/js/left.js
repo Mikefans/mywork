@@ -19,5 +19,10 @@ $(document).ready(function(){
 		  });
 	});
   
+  $("#cate-list").click(function(){
+	  $.get("/item/category/list",function(data,status){
+		    $('.right-div').html(data);
+		  });
+	});
 });
 

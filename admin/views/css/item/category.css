@@ -1,0 +1,89 @@
+li {
+	list-style-type:none;
+}
+
+
+/*增加*/
+.cate-add-div{
+	width:700px;
+	height:500px;
+}
+
+.cate-adds-divs{
+	font-size : 20px;
+	width:400px;
+	height:100%;
+	margin-top:30px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:#87CEFA;
+}
+
+.cate-adds-divs input{
+	float:center;
+	width:200px;
+	height:30px;
+	margin-top:10px;
+	margin-right:100px;
+}
+
+.add-second-input{
+	cursor:hand;
+}
+
+.del-second-input{
+	cursor:hand;
+}
+
+.del-second{
+	cursor:hand;
+}
+
+.cate-sumit{
+	cursor:hand;
+	padding-top:5px;
+	text-align:center;
+	margin-left:110px;
+	width:80px;
+	height:30px;
+	background-color:#1E90FF;
+}
+
+
+/*列表*/
+.cate-list-div{
+	width:700px;
+	height:100%;
+}
+
+.cate-lists-divs{
+	font-size : 20px;
+	width:700px;
+	height:100%;
+	margin-top:30px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:#87CEFA;
+}
+.cate-list-ul{
+	width:100%;
+	margin-left:0px;
+}
+
+.cate-list-ul li ul{
+	display:none;
+}
+
+.cate-list-ul input{
+	font-size:20px;
+	margin-top:10px;
+	width:150px;
+	height:30px;
+}
+
+.cate-list-ul span{
+	color:red;
+	cursor:hand;
+	margin-left:8px;
+	font-size:10px;
+}

@@ -1,11 +1,13 @@
 .left-menu {
+	float:left;
 	font-size : 18px;
 	width :130px;
-	background-color:#F5E2EC;
+	height:100%;
+	background-color:#FFB6C1;
 	padding-top : 10px;
 }
 .left-menu li{
-		cursor:hand;
+	cursor:hand;
 }
 
 .left-menu ul{
@@ -31,3 +33,6 @@
 	margin-top:5px;
 }
 
+.right-div{
+	float:left;
+}
