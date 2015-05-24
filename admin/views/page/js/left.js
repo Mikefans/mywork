@@ -12,15 +12,22 @@ $(document).ready(function(){
 	  $(".next-menu").hide();
 	  $(this).children(".next-menu").show();
 	});
-  
+  //类目添加
   $("#cate-add").click(function(){
 	  $.get("/item/category/add",function(data,status){
 		    $('.right-div').html(data);
 		  });
 	});
   
+  //类目管理
   $("#cate-list").click(function(){
 	  $.get("/item/category/list",function(data,status){
+		    $('.right-div').html(data);
+		  });
+	});
+  //商品添加
+  $("#item-add").click(function(){
+	  $.get("/item/item/add",function(data,status){
 		    $('.right-div').html(data);
 		  });
 	});
