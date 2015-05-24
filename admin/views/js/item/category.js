@@ -70,7 +70,7 @@ $(document).ready(function(){
   $(".cate-list-second-add").click(function(){
 	  $(this).parent("li").children("ul").show();
 	  var id = $(this).parent("li").attr("id");
-	  var input ="<li id="+id+"><input type=text id=cate-new-input /><span class=cate-list-del id='' >删除此类目</span></li>";
+	  var input ="<li id="+id+"><input type=text id=cate-new-input /></li>";
 	  $(this).parent("li").children("ul").append(input); 
 	});
   //修改一级类目
@@ -134,10 +134,6 @@ $(document).ready(function(){
 			           		   timeout:2	  
 			           		});
 					  }else if (data.status == 'success'){
-						  alert(1);
-						  if ( isInt(data.result.id)){
-							  $(this).attr("id",data.result.id);
-						  }
 						  ds.dialog({
 			           		   title : '消息提示',
 			           		   content : "修改成功",
@@ -158,28 +154,27 @@ $(document).ready(function(){
   $(".save-list-new").click(function(){
 	  var cateId = $(this).parent("li").attr("id");
 	  var cateName = $("#cate-new-input").val();
+	  if (cateName == '' || typeof cateName == 'undefined'){
+		  return;
+	  }
 	  $.post("/item/category/altercate",
 			  {
-			    cate_id:fcateId,
+			    cate_id:cateId,
 			    cate_name:cateName,
-			    flag:1
+			    flag:1,
 			  },
 			  function(data,status){
 				  if (status == 'success'){
-					  if(data.status == 'error'){
+					  if (data.status == 'success'){
+						  ds.dialog({
+			           		   title : '消息提示',
+			           		   content : "保存成功",
+			           		   timeout:2	  
+			           		});
+					  }else{
 						  ds.dialog({
 			           		   title : '消息提示',
 			           		   content : data.desc,
-			           		   timeout:2	  
-			           		});
-					  }else if (data.status == 'success'){
-						  alert(1);
-						  if ( isInt(data.result.id)){
-							  $(this).attr("id",data.result.id);
-						  }
-						  ds.dialog({
-			           		   title : '消息提示',
-			           		   content : "修改成功",
 			           		   timeout:2	  
 			           		});
 					  }
@@ -197,26 +192,26 @@ $(document).ready(function(){
   $(".cate-list-del").click(function(){
 	  var cateId = $(this).attr('id');
 	  var fcateId = $(this).parent("li").attr("id");
-	  $(this).parent("li").hide();return;
-	  $.post("/item/category/altercate",
+	  $.post("/item/category/delcate",
 			  {
 			    cate_id:fcateId,
-			    cate_name:cateName,
-			    next_cate_id:cateId
+			    next_cate_id:cateId,
+			    is_delete:1
 			  },
 			  function(data,status){
 				  if (status == 'success'){
-					  if(data.status == 'error'){
+					  if(data.status == 'success'){
 						  ds.dialog({
 			           		   title : '消息提示',
-			           		   content : data.desc,
+			           		   content : "删除成功",
 			           		   timeout :2	  
 			           		});
-					  }else if (data.status == 'success'){
+					  $(this).parent("li").hide();  
+					  }else {
 						  ds.dialog({
 			           		   title : '消息提示',
-			           		   content : "修改成功",
-			           		   timeout :2	  
+			           		   content : "服务错误，请重试",
+			           		   timeout:2	  
 			           		});
 					  }
 				  }else {

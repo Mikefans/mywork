@@ -11,8 +11,7 @@ if (!empty($result)){
 	   echo "<input type=text value=$res[cate_name] class=father-cate />".
 	   "<span class=cate-list-second>查看二级类目</span><span class=cate-list-del id =$res[cate_id]>删除此类目</span>".
 	   "<span class=cate-list-second-add id =$res[cate_id] >添加一个二级类目</span>".
-	   "<span class=save-list-new id =$res[cate_id] >保存新增</span>".
-	   "<span class=del-list-new id =$res[cate_id] >删除新增</span>";
+	   "<span class=save-list-new id =$res[cate_id] >保存新增</span>";
 	   if (!empty($res['n_cate'])){
            echo "<ul>";
 	   	   foreach ($res['n_cate'] as $nCate){

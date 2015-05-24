@@ -18,7 +18,7 @@ class CategoryController extends Controllers_Abstract {
        $this->disableView();
        $params = $this->getParams();
        $model = \Item\CategoryModel::getInstance();
-       $result = $model->addCates($params);
+       $result = $model->delCates($params);
        $this->response($result);
    }
    

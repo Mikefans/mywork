@@ -36,17 +36,31 @@ class CategoryModel extends \Mapper\Abstracts
     	return array('msg' => 'success');
     }
     
-    public function deleteCate($params){
-    	if (!isset($params['cid']) || empty($params['cid'])){
+    public function delCates($params){
+    	if (!isset($params['cate_id']) || empty($params['cate_id'])){
     		\Core::setError('参数错误');
     	}
-    	$cid = (int)$params['cid'];
-    	$this->where(array(
-    		'cate_id' => $cid
-    	))
-    	   ->update(array(
-    	   	'is_delete'=> 1
-    	   ));
+        if (!isset($params['next_cate_id']) || empty($params['next_cate_id'])){
+    		\Core::setError('参数错误');
+    	}
+    	if ($params['next_cate_id'] == $params['cate_id']){
+    		$this->where(array(
+    			'cate_father' => (int)$params['next_cate_id']
+    		))
+    		      ->whereOr(array(
+    		      	'cate_id' => (int)$params['cate_id']
+    		      ));
+    	}else {
+    	    $this->where(array(
+    	        'cate_id' => (int)$params['next_cate_id']
+    	    ))
+    	    ->where(array(
+    	    	'cate_father' => (int)$params['cate_id']
+    	    ));
+    	}
+    	$this->update(array(
+	       	'is_delete' => 1
+	       ));
         return array('msg' => 'success');
     }
     
@@ -55,7 +69,7 @@ class CategoryModel extends \Mapper\Abstracts
         	\Core::setError('类目名不能为空');
         }
         $cateName = $params['cate_name'];
-        if (empty($params['cate_id'])){
+        if (!isset($params['cate_id']) || empty($params['cate_id'])){
             \Core::setError('参数错误');
         }
         $cateId = $params['cate_id'];
@@ -64,7 +78,7 @@ class CategoryModel extends \Mapper\Abstracts
         	    'cate_father' => $cateId,
         	    'cate_name' => $cateName
         	);
-        	  $id = $this->update($data);
+        	  $id = $this->insert($data);
         	  return array('cate_id' => $id);
         }
         if (isset($params['next_cate_id'])){
