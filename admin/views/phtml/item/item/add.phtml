@@ -1,5 +1,10 @@
 <link rel ='stylesheet' href= '/views/css/item/item.css' type = "text/css">
 
+    <link href="../themes/default/_css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="/views/edit/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/views/edit/editor_api.js"></script>
+    <script type="text/javascript" src="views/edit/lang/zh-cn/zh-cn.js"></script>
+    
 <div class ='item-add-div'>
 <table border=1 class='item-add-table'>
 <tr>
@@ -29,21 +34,16 @@
 <tr>
 <td class="input-title">宝贝型号：</td><td><input type ="text" /></td>
 </tr> 
+    <tr>
+        <td>中国</td><td><textarea id="myEditor" style="width:800px;height:240px;"></textarea></td>
+    </tr>
 
-<tr>
-<td></td><td></td>
-</tr> 
-
-<tr>
-<td></td><td></td>
-</tr> 
-
-<tr>
-<td></td><td></td>
-</tr> 
 </table>
 
 
 
 </div>
 <script type="text/javascript"  src=" /views/js/item/item.js"></script>
+<script type="text/javascript">
+    var um = UM.getEditor('myEditor');
+</script>
