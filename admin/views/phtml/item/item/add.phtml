@@ -105,43 +105,54 @@
     </style>
     
 <div class ='item-add-div'>
-<table border=1 class='item-add-table'>
+
+<div class = "save-item-div">
+<input type="button" value = "保存宝贝编辑" id ="save-item-button" />
+</div>
+
+
+<form id="item-base-info">
+<table class='item-add-table'>
 <tr>
-<td class="input-title">宝贝标题：</td><td><input type ="text" width="400px;"/></td>
+<td class="input-title">宝贝标题：</td><td><input type ="text" class="item-title-input" name= "item_title" /><span class="input-asign">&nbsp; *最多支持30个汉子</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">宝贝价格：</td><td><input type ="text" /></td>
+<td class="input-title">宝贝价格：</td><td><input type ="text" class="litle-input" name="item_price" /><span class="input-asign">&nbsp; *保留两位小数点</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">宝贝促销价：</td><td><input type ="text" /></td>
+<td class="input-title">宝贝促销价：</td><td><input type ="text" class="litle-input" name="item_promo_price" /><span class="input-asign">&nbsp; *不填为原件售卖</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">库存数量：</td><td><input type ="text" /></td>
+<td class="input-title">库存数量：</td><td><input type ="text" class="litle-input" name="item_total" /><span class="input-asign">&nbsp; *至少5个</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">宝贝快递费：</td><td><input type ="text" /></td>
+<td class="input-title">宝贝快递费：</td><td><input type ="text" class="litle-input" name="item_post" /><span class="input-asign">&nbsp; *保留两位小数点（不填为免邮）</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">宝贝颜色：</td><td><input type ="text" /></td>
+<td class="input-title">宝贝颜色：</td><td><input type ="text" class="item-title-input" /><span class="input-asign">&nbsp; *多个颜色请用请用"英文"逗号(,)隔开</span></td>
 </tr> 
 
 <tr>
-<td class="input-title">宝贝型号：</td><td><input type ="text" /></td>
-</tr> 
-    <tr>
-        <td>中国</td><td><textarea id="myEditor" style="width:800px;height:240px;"></textarea></td>
-    </tr>
+<td class="input-title">宝贝型号：</td><td><input type ="text" class="item-title-input" /><span class="input-asign">&nbsp; *多个尺码请用请用"英文"逗号(,)隔开</span></td>
+</tr>  
 
 </table>
+</form>
+
+<div class='edit-text-edit' >
+<textarea id="myEditor" style="width:800px;height:500px;" ></textarea>
+</div>
+
 
 
 
 </div>
+
 <script type="text/javascript"  src=" /views/js/item/item.js"></script>
 <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
     <p>这里我可以写一些输入提示</p>
