@@ -3,21 +3,42 @@ class ItemController extends Controllers_Abstract {
     
     public function addAction() 
     {
-    	$cateModel = \Item\CategoryModel::getInstance();
-    	$result = $cateModel->cateLists();
-    	$this->getView()->assign('cate',$result);
+        $params = $this->getParams();
+        $cateModel = \Item\CategoryModel::getInstance();
+        if (!isset($params['cid'])){
+            $result = $cateModel->cateLists();
+            $this->getView()->assign('cates',$result);
+        }else {
+            $cid = $params['cid'];
+            $this->disableView();
+        	$result = $cateModel->where(array(
+        		'cate_father' => $cid
+        	))
+        	   ->get();
+        	$this->response($result);
+        }
+    	
+    	
     }
    
-    public function addCateAction()
+    public function addsAction()
     {
        $this->disableView();
        $params = $this->getParams();
-       $model = \Item\CategoryModel::getInstance();
-       $result = $model->addCates($params);
+       $model = \Item\ItemModel::getInstance();
+       $result = $model->addItems($params);
        $this->response($result);
     }
    
-
+    public function uploadAction() 
+    {
+        $this->disableView();
+        $params = $this->getParams();
+        $name = $params['name'];
+        $uploadClass = new \Tools\UploadFile($name);
+        $result = $uploadClass->getFileInfo();
+        $this->response($result);
+    }
 }
 ?>
 

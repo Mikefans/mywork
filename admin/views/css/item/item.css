@@ -2,6 +2,10 @@ li {
 	list-style-type:none;
 }
 
+a{
+	text-decoration:none;
+}
+
 .item-add-div{
 	float:left;
 	width:100%;
@@ -60,4 +64,39 @@ li {
 	margin-left:10px;
 	height:30px;
 	background-color:#1E90FF;
+}
+
+
+/*下拉框*/
+.item-add-table select{
+	margin-left:80px;
+	width : 160px;
+	height:30px;
+	font-size:18px;
+	color:blue;
+}
+/*主图*/
+#main-img {
+	display:none;
+	width:200;
+	height:130;
+}
+
+.image-next-li{
+	margin-left:8px;
+	float:left;
+	width:100px;
+	height:60px;
+}
+
+.next-img-ul{
+	float:left;
+	width:500px;
+	height:65px;
+}
+
+.img-next-div{
+	float:left;
+	width:500px;
+	height:65px;
 }
