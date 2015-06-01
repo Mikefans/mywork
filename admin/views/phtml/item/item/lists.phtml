@@ -1,0 +1,143 @@
+<link rel ='stylesheet' href= '/views/css/item/lists.css' type = "text/css">
+<script type="text/javascript"  src=" /views/js/item/lists.js"></script>
+
+
+<div class ="item-lists">
+<div class='item-lists-title'> <?php if ($status == 1)  echo '在售商品管理' ;else echo '仓库商品管理';?></div>
+
+<div class ='item-lists-search'>
+
+<ul>
+<li>
+<select  id = "select-father">  
+<option value="0" selected="selected">请选择一级类目</option>
+<?php 
+
+    foreach ($cates as $cate){
+        echo "<option value={$cate['cate_id']} >";
+    	echo $cate['cate_name']."</option>";
+    }
+
+
+?>
+</select> 
+</li><li>
+<select  id = "select-next">  
+<option value="0" selected="selected">请选择一级类目</option>
+</select> 
+</li>
+<li>关键字：<input type ='text' id ='key-input' /></li>
+<li><input type="button" value='搜索' class='condition-search' /></li>
+</ul>
+
+</div>
+
+<table border =1 id='item-list-table'>
+<tr>
+<td>商品ID</td><td>商品标题</td><td>价格</td><td>优惠价</td><td>邮费</td><td>是否推荐</td><td>库存</td><td>操作</td>
+</tr>
+ <?php 
+foreach ( $lists as $list){
+    $isRecommend = $list['is_recommend'] == 0 ? '未推荐' : '已推荐';
+    $opId = $list['is_recommend'] == 0 ? 2 : -2;
+    $opType = $list['is_recommend'] == 0 ? '立即推荐' : '取消推荐';
+    $isOnsell = $list['item_status'] == 1 ? '下架' :  '上架';
+    echo '<tr>';
+    echo "<td><input type=checkbox value={$list['item_id']} />{$list['item_id']}</td><td>{$list['item_title']}</td><td>{$list['item_price']}</td><td>{$list['item_promo_price']}</td>".
+    "<td>{$list['item_post']}</td><td id=op{$list['item_id']} >$isRecommend</td><td>{$list['item_total']}</td>".
+    "<td><ul class=item-operator id={$list['item_id']} ><li id=1>删除</li><li id=$opId>$opType</li><li id=3 >{$isOnsell}</li></ul></td>";
+    echo '</tr>';
+ }
+?>
+
+</table>
+<div class="tcdPageCode"></div>
+<div class='operator-all' >
+<select  id = "select-next">  
+<option value="0" selected="selected">批量操作</option>
+<option value="1" >删除选择</option>
+<option value="2" >推荐选择</option>
+<option value="3" >下架选择</option>
+</select>
+<input type = "button" value = '确定' />
+
+</div>
+</div> 
+<script src="/views/js/jquery.page.js"></script>
+<script>
+    var itemStatus = <?php echo $status ;?>;
+    $(".tcdPageCode").createPage({
+        pageCount:<?php echo $pageCount?>,
+        current:1,
+        backFn:function(p){
+        	var cateFather = $("#select-father").val();
+    		var cateNext = $("#select-next").val();
+    		var q = $("#key-input").val();
+    		$.get('/item/item/list',{
+    			status : itemStatus,
+    			cate_father:cateFather,
+    			cate_next: cateNext,
+    			q:q,
+    			page_num:p,
+    			},
+    		function(data){
+    				if (data.status == 'success'){
+    					 $("#item-list-table tr").remove();
+    					    var title = "<tr><td>商品ID</td><td>商品标题</td><td>价格</td><td>优惠价</td><td>邮费</td><td>是否推荐</td><td>库存</td><td>操作</td></tr>";
+    					    $("#item-list-table").append(title);
+    					    if (data.result.data == ''){
+    					    	$(".tcdPageCode").createPage({
+    						        pageCount:0,
+    						        current:1,
+    						        backFn:function(p){
+    						        }
+    						    });
+    					    	return;
+    					    }
+    					    var datas = data.result.data;
+    					    var len = datas.length;
+    					    for (var i = 0 ; i < len ; i++){
+    					    	if (datas[i].is_recommend == 1){
+    					    		var isRecommend = '已推荐';
+    					    		var recommendOp = '取消推荐';
+    					    		var opId = -2;
+    					    	}else {
+    					    		var isRecommend = '未推荐';
+    					    		var recommendOp = '立即推荐';
+    					    		var opId = 2;
+    					    	}
+    					    	if (itemStatus == 1){
+    					    		var isOnsell = '下架';
+    					    	}else {
+    					    		var isOnsell = '上架';
+    					    	}
+    					    	var td =  "<tr><td><input type=checkbox value="+datas[i].item_id+" />"+datas[i].item_id+"</td><td>"+datas[i].item_title+"</td><td>"+datas[i].item_price+"</td><td>"+datas[i].item_promo_price+"</td>"+
+    					        "<td>"+datas[i].item_post+"</td><td id=op"+datas[i].item_id+" >"+isRecommend+"</td><td>"+datas[i].item_total+"</td>"+
+    					        "<td><ul class=item-operator id= "+datas[i].item_id+"><li id=1>删除</li><li id="+opId+" >"+recommendOp+"</li><li id=3 >"+isOnsell+"</li></ul></td></tr>";
+    					    	$("#item-list-table").append(td);
+    					    }
+    					    
+    						$(".tcdPageCode").createPage({
+    					        pageCount:data.result.page_count,
+    					        current:data.result.page_num,
+    					        backFn:function(p){
+    					        }
+    					    });
+    				}else if(data.status == 'error'){
+    					ds.dialog({
+    						   title : '消息提示',
+    						   content : data.desc,
+    						   timeout:2	  
+    						});
+    				}else{
+    					ds.dialog({
+    						   title : '消息提示',
+    						   content : '服务错误请重试',
+    						   timeout:2	  
+    						});
+    				}
+    		   
+    		});
+        }
+    });
+</script>

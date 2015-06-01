@@ -11,6 +11,8 @@ class Adapter
     protected $_connection;
 
     protected $_query;
+    
+    protected $_instance;
 
     const CONNECT_RETRY =3;
     
@@ -19,6 +21,15 @@ class Adapter
         $this->connect();
     }
 
+    public function getInstance()
+    {
+    	if(empty($this->_instance)){
+    	    $adapter = new self();
+    	    $this->_instance = $adapter;
+    	}
+    	return $this->_instance;
+    }
+    
     /**
      * 获取模块对应的数据库配置
      */

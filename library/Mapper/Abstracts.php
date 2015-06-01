@@ -218,10 +218,13 @@ abstract class Abstracts
      */
     public function db()
     {
-        $adapter = new \Db\Mysql\Adapter();
-        $db = $adapter->connect();
+        $adapter = \Db\Mysql\Adapter::getInstance();
         if (! $this->_query) {
+//             $adapter = new \Db\Mysql\Adapter();
+            $db = $adapter->connect();
             $this->_query = $adapter->newQuery();
+            
+            
         }
         $adapter->setQuery($this->_query);
         return $adapter;

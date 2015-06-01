@@ -193,7 +193,7 @@ class Uploader
      */
     private function getFolder()
     {
-        $pathStr = "/qingfan/bishe/admin/upload";//$this->config[ "savePath" ];
+        $pathStr = "/qingfan/bishe/upload/descImages"; //$this->config[ "savePath" ];
         if ( strrchr( $pathStr , "/" ) != "/" ) {
             $pathStr .= "/";
         }

@@ -1,7 +1,7 @@
 .left-menu {
 	float:left;
-	font-size : 18px;
-	width :130px;
+	font-size : 22px;
+	width :15%;
 	height:100%;
 	background-color:#FFB6C1;
 	padding-top : 10px;
@@ -19,7 +19,8 @@
 }
 
 .main-menu{
-	margin-top:5px;
+	margin-left:30px;
+	margin-top:30px;
 	height:30px;
 	width:100%;
 }
@@ -31,8 +32,10 @@
 .next-menu li{
 	color :blue;
 	margin-top:5px;
+	margin-left:30px;
 }
 
 .right-div{
 	float:left;
+	width:85%;
 }

@@ -3,7 +3,7 @@ namespace Tools;
 class UploadFile
 {
 private $fileField;            //文件域名
-    private $_host ="http://115.28.42.244/";
+    private $_host = "http://upload.renqingfan.com"; //文件上传空间
     private $file;                 //文件上传对象
     private $config;               //配置信息
     private $oriName;              //原始文件名
@@ -161,7 +161,7 @@ private $fileField;            //文件域名
      */
     private function getFolder()
     {
-        $pathStr = "/qingfan/bishe/admin/upload/images";//$this->config[ "savePath" ];
+        $pathStr = "/qingfan/bishe/upload/images";//$this->config[ "savePath" ];
         if ( strrchr( $pathStr , "/" ) != "/" ) {
             $pathStr .= "/";
         }

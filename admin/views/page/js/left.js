@@ -25,6 +25,18 @@ $(document).ready(function(){
 		    $('.right-div').html(data);
 		  });
 	});
+  //在售商品：
+  $("#item-onsell").click(function(){
+	  $.get("/item/item/lists?status=1",function(data,status){
+		    $('.right-div').html(data);
+		  });
+	});
+  //仓库商品：
+  $("#item-depot").click(function(){
+	  $.get("/item/item/lists?status=2",function(data,status){
+		    $('.right-div').html(data);
+		  });
+	});
   //商品添加
   $("#item-add").click(function(){
 	  $.get("/item/item/add",function(data,status){
