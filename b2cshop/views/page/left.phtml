@@ -1,6 +1,6 @@
 <?php 
-$catalogueMapper = \Shop\Mapper\Left\CatalogueModel::getInstance();
-$result = $catalogueMapper->getLists();
+$categoryMapper = \Item\CategoryModel::getInstance();
+$result = $categoryMapper->cateLists();
 ?>
 <link rel ='stylesheet' href= '/views/page/css/left.css' type = "text/css">
 <div class = 'left'>
@@ -9,11 +9,11 @@ $result = $catalogueMapper->getLists();
 <li class= "menu" id = 'left-home'>首页</li>
 <?php 
 foreach ($result as $res){
-	echo '<li class = menu>'.$res['cata_name'];
-	if(!empty($res['cata_next'])){
+	echo '<li class = menu id='.$res['cate_id'].'>'.$res['cate_name'];
+	if(!empty($res['n_cate'])){
         echo '<ul class=next-menu>';
-		foreach (json_decode($res['cata_next']) as $name){
-			echo '<li>'.$name.'</li>';
+		foreach ($res['n_cate'] as $next){
+			echo '<li id='.$next['cate_id'].'>'.$next['cate_name'].'</li>';
 		}
 		echo '</ul></li>';
 	}

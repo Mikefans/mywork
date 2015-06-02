@@ -99,7 +99,8 @@ $(document).ready(function(){
 					  },
 					  function(data,status){
 						  if (data.status == 'success'){
-							  history.back();
+//							  history.back();
+							  location.href("/home/index/index");
 						  }else if (typeof JSON.parse(data) == 'object') {
 							  ds.dialog({
 								   title : '消息提示',

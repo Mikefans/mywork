@@ -14,13 +14,84 @@
 <div class="home-right">
 <span class = 'home-lanmu'>最新上架>></span>
 <div class = "home-new">
+<table >
+<tr>
+<?php foreach ($new as $res):?>
+<td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
+<br/><br/>
+<span class= 'itme-title'>
+<?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
+</span>
+<br/><br/>
+<span class='item-prices' >
+<?php 
+    if (!empty($res['item_promo_price'])){
+	   echo '售价：<span style=text-decoration:line-through >'.$res['item_price'].
+	   '</span>&nbsp;&nbsp;'.$res['item_price'].'&nbsp;元';
+    }else {
+	   echo '售价：'.$res['item_price'].'&nbsp;元';
+    }
+?>
+</span>
+</td>
 
+<?php endforeach;?>
+</tr>
+</table>
 </div>
 <span class = 'home-lanmu'>掌柜推荐>></span>
 <div class = "home-favorite" >
+<table>
+<tr>
+<?php foreach ($recommend as $res):?>
+<td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
+<br/><br/>
+<span class= 'itme-title'>
+<?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
+</span>
+<br/><br/>
+<span class='item-prices' >
+<?php 
+    if (!empty($res['item_promo_price'])){
+	   echo '售价：<span style=text-decoration:line-through >'.$res['item_price'].
+	   '</span>&nbsp;&nbsp;'.$res['item_price'].'&nbsp;元';
+    }else {
+	   echo '售价：'.$res['item_price'].'&nbsp;元';
+    }
+?>
+</span>
+</td>
+
+<?php endforeach;?>
+</tr>
+</table>
 </div>
 <span class = 'home-lanmu'>热门点击>></span>
 <div class = "home-tuijian">
+<table >
+<tr>
+<?php foreach ($hot as $res):?>
+<td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
+<br/><br/>
+<span class= 'itme-title'>
+<?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
+</span>
+<br/><br/>
+<span class='item-prices' >
+<?php 
+    if (!empty($res['item_promo_price'])){
+	   echo '售价：<span style=text-decoration:line-through >'.$res['item_price'].
+	   '</span>&nbsp;&nbsp;'.$res['item_price'].'&nbsp;元';
+    }else {
+	   echo '售价：'.$res['item_price'].'&nbsp;元';
+    }
+?>
+</span>
+</td>
+
+<?php endforeach;?>
+</tr>
+</table>
 </div> 
 
 </div>

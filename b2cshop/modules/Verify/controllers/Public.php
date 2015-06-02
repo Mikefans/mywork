@@ -25,15 +25,16 @@ class PublicController extends Controllers_Abstract {
             $session->del('login_code');
             \Core::setError('验证码错误');
         }
-		$mapper = \Vip\Mapper\UserModel::getInstance();
+		$mapper = \Vip\UserModel::getInstance();
 		$result = $mapper->login($params);
 		$this->response($result);
    }
    
    public function registerAction(){
+       echo 'hello world!';die;
        $this->disableView();
        $params = $this->getParams();
-	   $mapper = \Vip\Mapper\UserModel::getInstance();
+	   $mapper = \Vip\UserModel::getInstance();
 	   $result = $mapper->register($params);
        $this->response($result);
    }

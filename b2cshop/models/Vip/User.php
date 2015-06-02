@@ -1,5 +1,5 @@
 <?php 
-namespace Vip\Mapper;
+namespace Vip;
 
 class UserModel extends \Mapper\Abstracts
 {

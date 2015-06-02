@@ -16,12 +16,13 @@ class AuthPlugin extends Yaf\Plugin_Abstract
      * @var unknown
      */
     protected $_noAuthRoute = array(
-        "login"
+        "login",
+        "Verify"
     );
 
     public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
-        $route = Yaf\Dispatcher::getInstance()->getRouter()->getCurrentRoute();
+        $route =$request->getModuleName();// Yaf\Dispatcher::getInstance()->getRouter();
         if (in_array($route, $this->_noAuthRoute)) {
             $this->_authCheck = false;
         }
@@ -38,9 +39,9 @@ class AuthPlugin extends Yaf\Plugin_Abstract
             return true;
         }
         if (! $isLoggedId) {
-//             $request->setModuleName("Index");
-//             $request->setControllerName("Index");
-//             $request->setActionName("login");
+            $request->setModuleName("Verify");
+            $request->setControllerName("Public");
+            $request->setActionName("login");
         }
     }
 }

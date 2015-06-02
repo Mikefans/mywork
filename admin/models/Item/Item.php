@@ -26,7 +26,7 @@ class ItemModel extends \Mapper\Abstracts
     {
     	$status = isset($params['status']) ? (int) $params['status'] : '1';
     	$pageNum = isset($params['page_num']) ? (int) $params['page_num'] : 1;
-    	$pageSize = isset($params['page_size']) ? (int) $params['page_size'] : 1;
+    	$pageSize = isset($params['page_size']) ? (int) $params['page_size'] : 5;
     	$cateNext = isset($params['cate_next']) ? (int)$params['cate_next'] : '';
     	$cateFather = isset($params['cate_father']) ? (int)$params['cate_father'] :'';
     	$q = isset($params['q']) ? $params['q'] :'';

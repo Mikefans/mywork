@@ -4,18 +4,14 @@ class IndexController extends Controllers_Abstract {
     
    public function indexAction() 
    {
-       $this->getView()->assign("content", "Hello World");
+       $itemMapper = \Item\ItemModel::getInstance();
+       $result = $itemMapper->getHomelists();
+//        var_dump($result);die;
+       $this->getView()->assign("hot", $result['hot']);
+       $this->getView()->assign("new", $result['new']);
+       $this->getView()->assign("recommend", $result['recommend']);
    }
    
-   
-   public function loginAction(){
-   //	echo 'dwa';die;
-   //$this->getView()->disableView();
-        $params= $this->getParams();
-        $service = new \Vip\Service\VipModel();
-        $result = $service->login($params);
-        var_dump($result);die;
-   }
 }
 ?>
 
