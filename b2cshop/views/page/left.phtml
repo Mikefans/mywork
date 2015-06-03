@@ -9,11 +9,11 @@ $result = $categoryMapper->cateLists();
 <li class= "menu" id = 'left-home'>首页</li>
 <?php 
 foreach ($result as $res){
-	echo '<li class = menu id='.$res['cate_id'].'>'.$res['cate_name'];
+	echo '<li class = menu id='.$res['cate_id'].'><span class=span-li >'.$res['cate_name'].'</span>';
 	if(!empty($res['n_cate'])){
         echo '<ul class=next-menu>';
 		foreach ($res['n_cate'] as $next){
-			echo '<li id='.$next['cate_id'].'>'.$next['cate_name'].'</li>';
+			echo '<li id='.$next['cate_id'].'><span class=span-li-li>'.$next['cate_name'].'</span></li>';
 		}
 		echo '</ul></li>';
 	}

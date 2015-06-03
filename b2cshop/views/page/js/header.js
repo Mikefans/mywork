@@ -28,5 +28,28 @@ $(document).ready(function(){
 		   timeout:2	  
 		});
 	});
+  
+  
+  $(".span-li").click(function(){
+	  var id = $(this).parent('li').attr('id');
+		 $.post("/item/item/lists",
+				  {
+				    cate_id:id,
+				  },
+				  function(data,status){
+					  $('.body-divs').html(data);
+				  });
+	});
+  
+  $(".span-li-li").click(function(){
+	  var id = $(this).parent('li').attr('id');
+		 $.post("/item/item/lists",
+				  {
+				    cate_next:id,
+				  },
+				  function(data,status){
+					  $('.body-divs').html(data);
+				  });
+	});
 });
 

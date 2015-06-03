@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<title>沐子家</title>
+
+<link rel ='stylesheet' href= '/views/css/vip/order.css' type = "text/css">
+<body>
+<?php include_once PAGE . DS.'header.phtml';?>
+<div class = 'body-div'>
+
+<div class='address-area'>
+<ul>
+
+<?php foreach ($address as $add){
+    echo "<li class=address-area-li >";
+    echo "<input type =radio name=chooseadd value=$add[address_id] >详细地址：".$add['address_detail']."&nbsp;&nbsp;&nbsp;收件人：".$add['receiver_name']."&nbsp;&nbsp;&nbsp;手机号：".$add['receiver_mobile'];
+    echo "</li>";
+}
+    ?>
+</ul>
+
+</div>
+
+<div class='item-area' >
+<hr/>
+<table width=100% >
+<tr>
+<td><img src=<?php echo $item['item_img']; ?> class = 'main-img' /></td>
+<td width=150px; ><a href="/item/item/detail?item_id=<?php echo $item['item_id']; ?>" ><?php echo $item['item_title'];?> </a></td>
+<td>颜色：<?php echo $order['item_color']; ?></td>
+<td>尺码:<?php echo $order['item_marque']; ?></td>
+<td>数量：<?php echo $order['item_num']; ?></td>
+<td>原价：<?php echo $item['item_price']; ?></td>
+<td>优惠价：<?php echo $item['item_promo_price']; ?></td>
+<td>邮费：<?php echo $item['item_post']; ?></td>
+</tr>
+<tr width=40px ><td colspan=8 style="text-align: right;" ><span class= "price-total" ><b>总计：￥<?php        if( $item['item_promo_price'] != 0){
+	                                                               echo $item['item_promo_price']+ $item['item_post'];
+                                                                }else{
+                                                                    echo $item['item_price']+$item['item_post'];
+                                                                }   
+                                                     ?></b></span> </td></tr>
+<tr width=100px> <td colspan=8 style="text-align: right;" ><br/><br/><br/><input type="image" class='commit-order' src="/views/images/commit.jpg" /></td></tr>
+</table>
+<hr/>
+</div>
+<div class='buy-area' ></div>
+</div>
+</body>
+<script><?php echo "var itemId=$item[item_id];"; ?></script>
+<script type="text/javascript"  src=" /views/js/vip/order.js"></script>
+</html>

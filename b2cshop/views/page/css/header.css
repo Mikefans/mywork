@@ -33,9 +33,10 @@ body li {
 
 .search-div {
 	width :100%;
-	height : 100px;
+	height : 120px;
 	margin-bottom : 0px;
-	margin-top : 0px;
+	margin-top : 0px; 
+	background-color:white;
 }
 .search-text {
 	float : left;

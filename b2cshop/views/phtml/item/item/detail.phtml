@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<title>沐子家</title>
+
+<link rel ='stylesheet' href= '/views/css/item/detail.css' type = "text/css">
+<body>
+<?php include_once PAGE . DS.'header.phtml';?>
+<?php include_once PAGE . DS.'search.phtml';?>
+<?php include_once PAGE . DS.'left.phtml';?>
+<div class = 'body-div'>
+
+<div class = 'goods-info'>
+<!-- 主图 -->
+<table class = 'goods-info' >
+<tr width=100%; height=360px; >
+<td height=360px; width=40%;>
+<img src=<?php echo $item['item_img'];?> class='main-img' />
+</td>
+<!-- 宝贝详细-->
+<td height=360px; width=60%;>
+<table width=100%; height=100%; class = 'detail-table'>
+<tr><td colspan = 2 class='item-item-title' ><b><?php echo $item['item_title']; ?></b></td></tr>
+<tr><td class='info-table-title' >价格</td><td>&nbsp;<?php echo '￥'.$item['item_price']; ?></td></tr>
+<?php if(!empty($item['item_promo_price'])): ?>
+<tr><td  class='info-table-title' >促销价</td><td>&nbsp;<?php echo '￥'.$item['item_promo_price']; ?></td></tr>
+<?php endif;?>
+<tr><td class='info-table-title' >运费</td><td>&nbsp;<?php if(empty($item['item_post'])){
+                            echo "包邮哦亲";
+                          }else{
+                                echo $item['item_post'];
+                          }?></td></tr>
+<tr><td class='info-table-title' >尺码</td><td>&nbsp;
+<ul  class="marque--ul" >
+<?php $itemMarque = str_replace("，", ",", $item['item_marque']);
+$itemMarque = explode(',',$itemMarque);
+foreach ($itemMarque as $m){
+    if (empty($m)){
+    	continue;
+    }
+	echo "<li id=$m class=item-choose-size >";
+	echo $m;
+	echo "</li>";
+}
+?>
+</ul>
+<input type='hidden' id='item-marque-set' />
+</td></tr>
+<tr><td class='info-table-title' >颜色分类</td><td>&nbsp;
+<ul class="color--ul" >
+<?php $itemMarque = str_replace("，", ",", $item['item_color']);
+$itemMarque = explode(',',$itemMarque);
+foreach ($itemMarque as $m){
+    if (empty($m)){
+    	continue;
+    }
+	echo "<li id=$m class=item-choose >";
+	echo $m;
+	echo "</li>";
+}
+?>
+</ul>
+<input type='hidden' id='item-color-set' />
+</td></tr>
+<tr><td class='info-table-title' >数量</td><td>&nbsp;<input type='text' style="width:40px;height:30px;" id="buy-item-num" >&nbsp;&nbsp;&nbsp;库存：<?php echo $item['item_total'];?></td></tr>
+</table>
+</td>
+</tr>
+
+
+<tr width=100%; height=90px; >
+
+<!-- 缩略图 -->
+<td width=40%; height=90px;  >
+<ul class='next-img-ul' >
+<?php 
+$nextImg = substr(str_replace("，", ",", $item['item_img_next']),1);
+$imgArr = explode(',',$nextImg);
+foreach ($imgArr as $img){
+	echo "<li class=next-img-li id= $img>";
+	echo "<img src=$img class=next-img class=next-img-img />";
+	echo "</li>";
+}
+?>
+
+</ul>
+</td>
+<!--  购买  收藏-->
+<td width=60%; height=90px;>
+<input type="image" src="/views/images/buy-now.jpg" style="margin-left: 20px;" class= 'to-buy-now' /><input type="image" src="/views/images/add-car.jpg" style="margin-left: 20px;" class='add-to-car' />
+</td>
+
+</tr>
+</table>
+</div>
+
+
+<div class = 'goods-left'>
+</div>
+
+<div class = 'goods-right'>
+<div style="width: 100%;height:30px;background-color:#DDDDDD;">
+<div class = 'good-description' ><b>商品详情</b></div>
+<div class = 'good-rate' ><b>商品评价</b></div>
+</div>
+<div class= 'description-content'>  
+<?php 
+echo $item['item_description'];
+?>
+</div>
+<div class= 'rate-content'>
+<h1>该宝贝暂无评价哦</h1>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+</body>
+<script><?php echo "var itemId=$item[item_id];"; ?></script>
+<script type="text/javascript"  src=" /views/js/item/detail.js"></script>
+</html>

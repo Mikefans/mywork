@@ -28,6 +28,7 @@
 }
 
 .left-div ul li{
+	cursor:hand;
 	border-left : 1px solid #6699cc; 
 	float : left;
 	font-size : 15pt;
@@ -50,4 +51,5 @@
 .left-div ul li ul li{
 	width : 100%;
 }
+
 

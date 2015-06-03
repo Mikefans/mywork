@@ -1,0 +1,24 @@
+.list-left{
+	float:left;
+	margin-top:20px;
+	width:180px;
+	height:100%;
+	background-color:#DC2233;
+}
+.list-right{
+	margin-top:20px;
+	float:right;
+	width:800px;
+	background-color:#DC2233;
+}
+
+.item-list-li{
+	float:left;
+	width:200px;
+	heith:200px;
+}
+
+.list-right li img{
+	width:80%;
+	height:130px;
+}

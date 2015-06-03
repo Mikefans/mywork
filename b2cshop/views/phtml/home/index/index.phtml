@@ -9,6 +9,7 @@
 <?php include_once PAGE . DS.'search.phtml';?>
 <?php include_once PAGE . DS.'left.phtml';?>
 <div class = 'body-div'>
+<div class='body-divs'>
 <div class ='left-favorite'>
 </div>
 <div class="home-right">
@@ -19,9 +20,11 @@
 <?php foreach ($new as $res):?>
 <td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
 <br/><br/>
+<a href =<?php echo "/item/item/detail?item_id=$res[item_id]"; ?> >
 <span class= 'itme-title'>
 <?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
 </span>
+</a>
 <br/><br/>
 <span class='item-prices' >
 <?php 
@@ -46,9 +49,11 @@
 <?php foreach ($recommend as $res):?>
 <td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
 <br/><br/>
+<a href =<?php echo "/item/item/detail?item_id=$res[item_id]"; ?> >
 <span class= 'itme-title'>
 <?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
 </span>
+</a>
 <br/><br/>
 <span class='item-prices' >
 <?php 
@@ -73,9 +78,11 @@
 <?php foreach ($hot as $res):?>
 <td class= "right-td"><img src=<?php echo $res['item_img']; ?> class ='right-main-image' />
 <br/><br/>
+<a href =<?php echo "/item/item/detail?item_id=$res[item_id]"; ?> >
 <span class= 'itme-title'>
 <?php echo mb_substr($res['item_title'],0,18,'utf-8').'>>>';?>
 </span>
+</a>
 <br/><br/>
 <span class='item-prices' >
 <?php 
@@ -93,7 +100,7 @@
 </tr>
 </table>
 </div> 
-
+</div>
 </div>
 </div>
 
