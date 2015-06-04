@@ -1,0 +1,10 @@
+.vip-left-menu{
+	width:15%;
+	height:100%;
+	float:left;
+	font-size:20px;
+}
+.vip-left-menu-ul li{
+	margin-top:20px;
+	cursor:hand;
+}

@@ -1,0 +1,22 @@
+.vip-info{
+	width:100%;
+	height:200px;
+	float:left;
+	margin-top:20px;
+	background-color:white;
+}
+
+.vip-right{
+	width:85%;
+	float:right;
+}
+
+.tx-image{
+	width:180px;
+	height:180px;
+}
+
+
+.user-indo-ul li{
+	margin-top:20px;
+}

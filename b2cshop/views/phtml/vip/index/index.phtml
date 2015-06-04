@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<title>会员中心</title>
+<link rel ='stylesheet' href= '/views/css/vip/index.css' type = "text/css">
+<body>
+<?php include_once PAGE . DS.'header.phtml';?>
+
+<div class = 'body-div'>
+<div class='body-divs'>
+<div class='vip-info' >
+<?php $user = \Yaf\Session::getInstance()->m_user; ?>
+<table>
+<tr>
+<td><img src="/views/images/tx.gif" class='tx-image' /></td>
+
+<td>
+<ul class= "user-indo-ul">
+<li><b>&nbsp;&nbsp;用户名：&nbsp;</b><?php echo $user['user_name']; ?></li>
+<li><b>会员等级：&nbsp;</b>
+<?php   for ($i =0 ;$i<$user['user_stage'];$i++ ): ?>
+<img src="/views/images/dengji.jpg" width=20px; height=20px; />
+<?php endfor; ?>
+</li>
+<li><b>账户余额：&nbsp;</b> <span style="color:red;font-size:20px;" ><b>￥<?php echo $user['user_money']; ?></b></span>
+</li>
+</ul>
+
+
+</td>
+</tr>
+
+</table>
+
+</div>
+<?php include_once PAGE . DS.'vip.phtml';?>
+
+<div class = 'vip-right'>
+
+
+
+</div>
+</div>
+</div>
+
+
+</body>
+</html>

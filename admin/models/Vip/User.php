@@ -94,29 +94,6 @@ class UserModel extends \Mapper\Abstracts
             \Core::setError('手机已存在');
         }
     }
-    
-    public function alterUser($params)
-    {
-        $session = \Yaf\Session::getInstance();
-        $user = $session->m_user;
-        unset($params['vip/user/alter']);
-        $data = $params;
-        if (empty($params['user_passwd'])){
-        	$data['user_passwd'] = $user['user_passwd'];
-        }else{
-        	$data['user_passwd'] = md5($params['user_passwd']);
-        }
-    	$this->where(array(
-    		'user_id' => $user['user_id']
-    	))
-    	       ->update($data);
-    	$result = $this->where(array(
-    		'user_id' => $user['user_id']
-    	))
-    	   ->first();
-    	$session->m_user = $result;
-    	return array('msg' => 'ok');
-    }
 }
 
 

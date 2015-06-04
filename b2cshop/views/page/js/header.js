@@ -51,5 +51,27 @@ $(document).ready(function(){
 					  $('.body-divs').html(data);
 				  });
 	});
+  
+//返回首页
+  $("#left-home").click(function(){
+		 location.href='/home/index/index';
+  });
+//返回首页
+  $("#head-home").click(function(){
+		 location.href='/home/index/index';
+  });
+//退出登录
+  $(".logout").click(function(){
+	  $.get("/verify/public/logout",
+			  {
+			  },
+			  function(data,status){
+				  location.href='/home/index/index';
+			  });
+  });
+//会员中心
+  $(".vip").click(function(){
+	 location.href='/vip/index/index';
+  });
 });
 

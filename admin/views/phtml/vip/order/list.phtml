@@ -1,71 +1,75 @@
 
-<link rel ='stylesheet' href= '/views/css/vip/order.css' type = "text/css">
+
+<link rel ='stylesheet' href= '/views/css/order/list.css' type = "text/css">
 <link rel ='stylesheet' href= '/views/css/page.css' type = "text/css">
-<div class=  'order-list'>
+
+
+<div  class= "order-lists">
 
 <div class= 'order-title'>
-<h1>订单管理</h1><br/><br/>
+<b>订单管理</b>
 </div>
 <select  id = "order-status">
 <option value=0 selected="selected">请选择状态</option>
 <option value=-1 >未付款</option>
 <option value=1 >待发货</option>
-<option value=2 >已发货</option>
+<option value=2 >待确认收货</option>
 <option value=3 >待评价</option>
 <option value=4 >已完成</option>
 <option value=5 >已关闭</option>
 </select>  
 
 <div class='order-list-div'>
-<div class= 'order-rate-div'>
-请输入评价内容：<br/>
-<textarea rows=3 cols =60 class='rate-content' ></textarea> <span class='commit-rate' style="cursor:hand;">提交评价</span><br/><br/>
-</div>
+
 <table width=100%>
 <tr>
-<td width=10% >商品信息</td><td width=6%;>金额</td><td width=8%;>收货人</td><td width=15%>收货地址</td>
-<td width=10%>联系号码</td><td width=10%>快递单号</td><td width=10%;>快递公司</td>
-<td width=10% >订单状态</td><td width=10% >操作</td></tr>
+<td width=30%>商品信息</td><td width=5%;>收货人</td><td width=20%>收货地址</td><td width=10%>联系号码</td><td width=10%>快递单号</td><td width=10%;>快递公司</td><td width=10% >订单状态</td><td width=5% >操作</td></tr>
 <?php foreach ($orders as $order ): ?>
 <tr>
-<td class="item-td" width=15%; style="font-size:12px;">
+<td class="item-td" width=30%;>
 <img src = <?php echo $order['item_img'];?> class='item-img' />
 <a href= "http://renqingfan.com/item/item/detail?item_id=<?php echo $order['item_id'];?>" >
-<?php echo mb_substr($order['item_title'],0,15,'utf-8').'...';?></a>
-</td>
-<td width=6%;>
-
-<?php echo $order['order_pay']; ?>
+<?php echo $order['item_title']?></a>
 </td>
 
-
-<td width=8%; style="font-size:12px;">
+<td width=5%;>
 <?php echo $order['receiver_name']; ?>
 </td>
 
-<td width=15%; style="font-size:12px;">
+<td width=20%;>
 <?php echo $order['receiver_address']; ?>
 </td>
 
-<td width=10%; style="font-size:12px;">
+<td width=10%;>
 <?php echo $order['receiver_mobile']; ?>
 </td>
 
-<td width=10%; style="font-size:12px;">
-<?php
+<td width=10%;>
+<?php if($order['order_add_num'] == 0){
+    	if ($order['order_status'] == 1){
+            echo "<input type=text class=order-add-num$order[order_id] id= $order[order_id] value=输入快递单号>";
+    	}
+       }else{
        	echo $order['order_add_num'] ;
+       } 
 ?>
 </td>
 
-<td width=10%; style="font-size:12px;">
+<td width=10%;>
 <?php 
+if($order['order_add_num'] == 0){
+    if ($order['order_status'] == 1){
+        echo "<input type=text class=order-add$order[order_id] id= $order[order_id] value=输入快递公司> ";
+    }
+}else{
     echo $order['order_add_num'] ;
+}
 
 ?>
 </td>
 
 
-<td width=10%; style="font-size:12px;">
+<td width=10%;>
 <?php 
 switch ($order['order_status'])
 {
@@ -76,7 +80,7 @@ switch ($order['order_status'])
 	    echo '待发货';
 	    break;
 	case 2:
-	    echo '已发货';
+	    echo '待确认收货';
 	    break;
 	case 3:
 	    echo '待评价';
@@ -87,32 +91,30 @@ switch ($order['order_status'])
     case 5:
         echo '订单关闭';
         break;
+	default:
+	    echo '删除';
 }
 
 
 ?>
 </td>
-<td width=10%; id=<?php echo $order['order_id'];?> style="font-size:12px;color:blue;">
+<td width=5%; id=<?php echo $order['order_id'];?>>
 <?php 
 switch ($order['order_status'])
 {
 	case 0:
-	    echo '<span id=1 class=order-opera >付款</span>';
+	    echo '<span id=1 class=order-opera >关闭</span>';
 	    break;
     case 1:
+        echo '<span id=2 class=order-opera >发货</span>';
         break;
     case 2:
-        echo '<span id=2 class=order-opera >确认收货</span>';
         break;
     case 3:
-        echo '<span id=3 class=order-opera >评价</span>';
         break;
     case 4:
-        echo '<span id=4 class=order-opera >删除</span>';
+        echo '<span id=3 class=order-opera >删除</span>';
         break;
-    case 5 :
-       echo '<span id=4 class=order-opera >删除</span>';
-       break;
 }
 
 ?>
@@ -123,8 +125,9 @@ switch ($order['order_status'])
 </table>
 </div>
 
+
 </div>
-<script src="/views/js/vip/order.js"></script>
+<script type="text/javascript"  src=" /views/js/order/list.js"></script>
 <script src="/views/js/jquery.page.js"></script>
 <script>
     $(".tcdPageCode").createPage({
@@ -137,7 +140,7 @@ switch ($order['order_status'])
     			page_num:p,
     			},
     		function(data){
-    		     $('.vip-right').html(data);	
+    		     $('.right-div').html(data);	
     		});
         }
     });

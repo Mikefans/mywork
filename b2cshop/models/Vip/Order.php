@@ -37,7 +37,8 @@ class OrderModel extends \Mapper\Abstracts
     	    'receiver_name' => $address['receiver_name'],
     	    'receiver_mobile' => $address['receiver_mobile'],
     	    'receiver_address' => $address['address_detail'],
-    	    'order_pay' => $pay
+    	    'order_pay' => $pay,
+    	    'create_time' => date('Y-m-d H:i:s')
     	); 
     	$id = $this->insert($data);
     	return  array('id' => $id);
@@ -65,18 +66,76 @@ class OrderModel extends \Mapper\Abstracts
     
     public function getList($params)
     {
-        $pageNum = isset($params['page_num']) ? (int)$params['page_num'] : 1;
-        $pageSize = isset($params['page_size']) ? (int)$params['page_size'] : 1;
-        $userId = \Core::getUser()['user_id'];
+        $status = isset($params['status']) ? (int)$params['status'] : '';
+    	$pageNum = isset($params['page_num']) ? (int)$params['page_num'] : 1;
+    	$pageSize = isset($params['page_size']) ? (int)$params['page_size'] : 5;
+    	
+    	if (!empty($status)){
+    	    if ($status == -1){
+    	    	$status = 0;
+    	    }
+    		$this->where(array(
+    			'order_status' => $status
+    		));
+    	}
     	$result = $this->where(array(
-    		'user_id' => $userId,
-    	    'is_delete' => 0
+    		'vip_delete' => 0
     	))
-    	       ->orderBy('create_time','desc')
-    	       ->skip(($pageNum -1 ) * $pageSize)
+    	       ->skip(($pageNum-1) * $pageSize)
     	       ->limit($pageSize)
-    	       ->get(); 
-    	return $result;
+    	       ->orderBy('modified_time','desc')
+    	       ->get();
+    	$totalRecords = $this->count();
+    	if (empty($result)){
+    	    return array(
+    		'data' => array(),
+    	    'page_count' => 0,
+    	    'page_num' => 1
+    	);
+    	}
+    	foreach ($result as $key => $res){
+    		$itemIds[] = $res['item_id'];
+    	}
+    	$itemIds = array_unique($itemIds);
+    	$itemModel = \Item\ItemModel::getInstance();
+    	$itemResult = $itemModel->whereIn(array(
+    		'item_id' => $itemIds
+    	))
+    	       ->get();
+    	foreach ($result as $key => $res){
+    		foreach ($itemResult as $ir){
+    			if ($ir['item_id'] == $res['item_id'] ){
+    				$result[$key]['item_title'] = $ir['item_title'];
+    				$result[$key]['item_img'] = $ir['item_img'];
+    			}
+    		}
+    	}
+    	
+    	return array(
+    		'data' => $result,
+    	    'page_count' => floor($totalRecords / $pageSize),
+    	    'page_num' => $pageNum
+    	);
+    }
+    
+    public function alterOrder($params)
+    {
+        $type = $params['type'];
+        $orderId = $params['order_id'];
+        if (empty($orderId)){
+            \Core::setError('参数错误');
+        }
+        $this->where(array(
+            'order_id' => $orderId
+        ));
+        if ($type == 2 ){//收货
+            $this->update(array('order_status' => 3));
+        }elseif ($type == 4 ){ //删除
+            $this->update(array('vip_delete' => 1));
+        }elseif ($type == 3){//评价
+            $this->update(array('order_status' => 4));
+        }
+        return array('msg' => 'ok');
     }
 }
 

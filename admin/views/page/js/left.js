@@ -43,5 +43,25 @@ $(document).ready(function(){
 		    $('.right-div').html(data);
 		  });
 	});
+  //查看订单
+  $("#order-look").click(function(){
+	  $.get("/vip/order/list",function(data,status){
+		    $('.right-div').html(data);
+		  });
+  });
+//sql查询
+  $("#db-sql").click(function(){
+	  $.get("/db/db/sql",function(data,status){
+		    $('.right-div').html(data);
+		  });
+  });
+//系统设置
+  $("#system-set").click(function(){
+	  $.get("/home/system/set",function(data,status){
+		    $('.right-div').html(data);
+		  });
+  });
+  
+  
 });
 

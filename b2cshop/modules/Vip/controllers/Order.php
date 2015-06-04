@@ -53,7 +53,18 @@ class OrderController extends Controllers_Abstract {
        $params = $this->getParams();
        $orderMapper = \Vip\OrderModel::getInstance();
        $result = $orderMapper->getList($params);
-       $this->getView()->assign('list',$result);
+       $this->getView()->assign('orders',$result['data']);
+       $this->getView()->assign('pageCount',$result['page_count']);
+       $this->getView()->assign('pageNum',$result['page_num']);
+   }
+   
+   public function alterAction()
+   {
+       $this->disableView();
+       $params = $this->getParams();
+       $orderModel = \Vip\OrderModel::getInstance();
+       $result = $orderModel->alterOrder($params);
+       $this->response($result);
    }
 }
 ?>

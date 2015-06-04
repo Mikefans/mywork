@@ -1,0 +1,25 @@
+<link rel ='stylesheet' href= '/views/css/vip/user.css' type = "text/css">
+
+<div class="user-info-next">
+<h1>用户资料修改</h1><br/>
+
+<?php $user = \Yaf\Session::getInstance()->m_user; ?>
+<ul class= 'user-input-li'>
+<li>用户名:<input type="text" class='user_name' value=<?php echo $user['user_name']; ?> />
+</li>
+
+<li>密&nbsp;&nbsp;码:<input type="password" class='user_passwd'  />
+</li>
+
+<li>手机号:<input type="text" class='user_mobile' value=<?php echo $user['user_mobile']; ?> />
+</li>
+
+<li>邮&nbsp;&nbsp;箱:<input type="text" class='user_email' value=<?php echo $user['user_email']; ?> />
+</li>
+
+</ul>
+<br/>
+<input type="button" value="提交" style="width:60px;height:30px;margin-left:80px;" class='commit-info-alter'/> 
+</div>
+
+<script type="text/javascript"  src=" /views/js/vip/user.js"></script>

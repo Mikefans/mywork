@@ -72,3 +72,46 @@
 	color:blue;
 	cursor:hand;
 }
+
+/*订单列表页*/
+
+.order-list{
+	width:100%;
+	
+}
+
+.order-list-div{
+	width:100%;
+	margin-top:40px;
+	height:30px;
+}
+.item-img{
+	float:left;
+	width:50px;
+	height:50px;
+}
+
+.item-td{
+	width:30%;
+}
+
+
+.page-td{
+	float:left;
+}
+
+.order-opera{
+	cursor:hand;
+}
+
+#order-status{
+	margin-top:20px;
+	margin-left:0px;
+	font-size:15px;
+}
+
+.order-rate-div{
+	display:none;
+	font-size:20px;
+	color:blue;
+}
