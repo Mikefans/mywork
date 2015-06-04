@@ -23,11 +23,12 @@ class RateController extends Controllers_Abstract {
     
     public function listAction()
     {
-        $this->disableView();
         $params = $this->getParams();
         $rateMapper = \Item\RateModel::getInstance();
-        $result = $rateMapper->addRate($params);
-        $this->response($result);
+        $result = $rateMapper->rateList($params);
+        $this->getView()->assign('rates',$result['data']);
+        $this->getView()->assign('pageCount',$result['page_count']);
+        $this->getView()->assign('pageNum',$result['page_num']);
     }
 }
 ?>

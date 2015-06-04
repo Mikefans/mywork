@@ -4,7 +4,7 @@
 <div class=  'order-list'>
 
 <div class= 'order-title'>
-<h1>订单管理</h1><br/><br/>
+<h1>订单管理</h1>
 </div>
 <select  id = "order-status">
 <option value=0 selected="selected">请选择状态</option>
@@ -28,10 +28,10 @@
 <td width=10% >订单状态</td><td width=10% >操作</td></tr>
 <?php foreach ($orders as $order ): ?>
 <tr>
-<td class="item-td" width=15%; style="font-size:12px;">
+<td class="item-td" width=15%; style="font-size:12px;float:left;">
 <img src = <?php echo $order['item_img'];?> class='item-img' />
 <a href= "http://renqingfan.com/item/item/detail?item_id=<?php echo $order['item_id'];?>" >
-<?php echo mb_substr($order['item_title'],0,15,'utf-8').'...';?></a>
+<?php echo mb_substr($order['item_title'],0,25,'utf-8').'...';?></a>
 </td>
 <td width=6%;>
 

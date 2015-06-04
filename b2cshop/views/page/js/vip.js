@@ -19,7 +19,7 @@ $(document).ready(function(){
 	  });
 	//我的评价
 	  $(".left-my-rate").click(function(){
-		  $.get("/verify/public/logout",
+		  $.get("/item/rate/list",
 				  {
 				  },
 				  function(data,status){
@@ -28,7 +28,7 @@ $(document).ready(function(){
 	  });
 	//收货地址
 	  $(".left-my-add").click(function(){
-		  $.get("/verify/public/logout",
+		  $.get("/vip/address/list",
 				  {
 				  },
 				  function(data,status){
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	  });
 	//钱包
 	  $(".left-my-purse").click(function(){
-		  $.get("/verify/public/logout",
+		  $.get("/vip/user/purse",
 				  {
 				  },
 				  function(data,status){
@@ -46,7 +46,7 @@ $(document).ready(function(){
 	  });
 	//留言
 	  $(".left-leave-mess").click(function(){
-		  $.get("/verify/public/logout",
+		  $.get("/verify/public/logoust",
 				  {
 				  },
 				  function(data,status){

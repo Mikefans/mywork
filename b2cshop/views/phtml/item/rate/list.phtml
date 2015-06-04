@@ -1,0 +1,51 @@
+
+<link rel ='stylesheet' href= '/views/css/item/rate.css' type = "text/css">
+<link rel ='stylesheet' href= '/views/css/page.css' type = "text/css">
+<div class= 'item-rate-list'>
+
+<h1>我的评价 </h1><br/>
+<table width=100% >
+
+<tr><td width=40% >商品信息</td><td width=30% >评价内容</td><td width=10%>评价时间</td><td width=20%>操作</td></tr>
+<?php foreach ($rates as $rate ): ?>
+<tr>
+<td class="item-td" width=40%  style="font-size:15px;">
+<img src = <?php echo $rate['item_img'];?> class='item-img' />
+<a href= "http://renqingfan.com/item/item/detail?item_id=<?php echo $rate['item_id'];?>" >
+<?php echo mb_substr($rate['item_title'],0,15,'utf-8').'...';?></a>
+</td>
+<td  width=30% >
+<?php echo $rate['rate_content'] ?>
+</td>
+
+<td  width=10% >
+<?php echo $rate['create_time'] ?>
+</td>
+
+<td width=20% >
+<span style="color:blue;cursor:hand" >删除</span>
+</td>
+<?php endforeach; ?>
+<tr><td colspan =4 ><div class="tcdPageCode"></div></td></tr>
+
+
+</table>
+</div>
+<script src="/views/js/item/rate.js"></script>
+<script src="/views/js/jquery.page.js"></script>
+<script>
+    $(".tcdPageCode").createPage({
+        pageCount:<?php echo $pageCount?>,
+        current:<?php echo $pageNum?>,
+        backFn:function(p){
+        	var status =$("#order-status").val();
+    		$.get('/vip/order/list',{
+    			status : status,
+    			page_num:p,
+    			},
+    		function(data){
+    		     $('.vip-right').html(data);	
+    		});
+        }
+    });
+</script>

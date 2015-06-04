@@ -1,0 +1,16 @@
+.add-lists{
+	width:100%;
+
+}
+
+.add-list-ul li{
+	float:left;
+}
+
+.add-hide{
+	display:none;
+}
+
+.hides{
+	display:none;
+}

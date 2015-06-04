@@ -1,0 +1,32 @@
+<link rel ='stylesheet' href= '/views/css/vip/user.css' type = "text/css">
+
+<div class='vip-purse'>
+
+<h1>钱包管理</h1>
+<br/>
+<?php 
+$user = \Yaf\Session::getInstance()->m_user;
+?>
+<span style="font-size:23px;">账号余额：</span><br/><br/>
+<span style="color: red;font-size:20px;" >￥<?php   echo $user['user_money']?></span>
+<span style="font-size:15px;cursor:hand;color:blue;" class='in-money' >充值</span>
+<span style="font-size:15px;color:blue;cursor:hand;" class='out-money' >提现</span>
+<br/><br/><br/>
+<div class='in-money-div'  style="display:none;">
+充值金额：<input type='text' class='in-money-num' style="height: 30px;width:80px;font-size:20px"/>
+<span style="color: blue;cursor:hand;" class='in-commit' >充值</span>
+
+</div>
+
+<div class='out-money-div' style="display:none;">
+提现金额：<input type='text' class='out-money-num' style="height: 30px;width:80px;font-size:20px"/>
+<span style="color: blue;cursor:hand;" class='out-commit'>提现</span>
+
+</div>
+</div>
+
+<script>
+
+var money = <?php echo $user['user_money'];?>;
+</script>
+<script src="/views/js/vip/user.js"></script>

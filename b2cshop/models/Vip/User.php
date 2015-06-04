@@ -117,6 +117,37 @@ class UserModel extends \Mapper\Abstracts
     	$session->m_user = $result;
     	return array('msg' => 'ok');
     }
+    
+    public function inMoney($params)
+    {
+    	$session = \Yaf\Session::getInstance();
+    	$user = $session->m_user;
+    	$money = $params['in_money'] + $user['user_money'];
+    	$this->where(array(
+    		'user_id' => $user['user_id']
+    	))
+    	       ->update(array('user_money' => $money));
+    	$user['user_money'] = $money;
+    	$session->m_user = $user;
+    	return array('money' => $money);
+    }
+    
+    public function outMoney($params)
+    {
+        $session = \Yaf\Session::getInstance();
+        $user = $session->m_user;
+        if ($params['out_money'] > $user['user_money']){
+        	\Core::setError('余额不足哦亲！');
+        } 
+    	$cashModel  = \Vip\CashModel::getInstance();
+    	$cashModel->insert(array(
+    		'user_id' => $user['user_id'],
+    	    'cash_num' => $params['out_money'],
+    	));
+    	$user['user_money'] -= $params['out_money']; 
+    	$session->m_user = $user;
+    	return array('money'=>$user['user_money']);
+    }
 }
 
 

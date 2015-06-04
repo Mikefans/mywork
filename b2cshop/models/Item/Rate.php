@@ -52,6 +52,52 @@ class RateModel extends \Mapper\Abstracts
         $id = $this->insert($data);
         return array('id' => $id);
     }
+    
+    //获取我的评价记录
+    public function rateList($params)
+    {
+        $user = \Yaf\Session::getInstance()->m_user;
+        $pageNum = isset($params['page_num']) ? (int)$params['page_num'] : 1;
+        $pageSize = isset($params['page_size']) ? (int)$params['page_size'] : 10;
+    	$result = $this->where(array(
+    		'user_id' => $user['user_id']
+    	))
+    	       ->orderBy('create_time','DESC')
+    	       ->skip(($pageNum - 1 )* $pageSize)
+    	       ->limit($pageSize)
+    	       ->get();
+    	$totalRecords = $this->count();
+    	if (empty($result)){
+    	    return array(
+    	        'data' => array(),
+    	        'page_count' => 0,
+    	        'page_num' => 1
+    	    );
+    	}
+    	foreach ($result as $key => $res){
+    	    $itemIds[] = $res['item_id'];
+    	}
+    	$itemIds = array_unique($itemIds);
+    	$itemModel = \Item\ItemModel::getInstance();
+    	$itemResult = $itemModel->whereIn(array(
+    	    'item_id' => $itemIds
+    	))
+    	   ->get();
+    	foreach ($result as $key => $res){
+    	    foreach ($itemResult as $ir){
+    	        if ($ir['item_id'] == $res['item_id'] ){
+    	            $result[$key]['item_title'] = $ir['item_title'];
+    	            $result[$key]['item_img'] = $ir['item_img'];
+    	        }
+    	    }
+    	}
+    	 
+    	return array(
+    	    'data' => $result,
+    	    'page_count' => floor($totalRecords / $pageSize),
+    	    'page_num' => $pageNum
+    	);
+    }
 }
 
 

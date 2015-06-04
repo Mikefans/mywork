@@ -1,0 +1,42 @@
+
+<link rel ='stylesheet' href= '/views/css/vip/address.css' type = "text/css">
+<div class= 'add-lists'>
+<h1>收货地址管理</h1><br/>
+<h3><span style="color: blue;cursor:hand;" class='add-add-new' >新增一条</span></h3>
+<div class= 'shows'>
+<ul >
+<?php foreach ($adds as $add ):?>
+<li  >
+<ul class='add-list-ul add-show' id= "add-show-id<?php echo $add['address_id'] ;?>">
+<li><b>收件人：</b><?php echo $add['receiver_name']; ?>&nbsp;&nbsp;&nbsp;</li>
+<li><b>联系号码：</b><?php echo $add['receiver_mobile'] ;?>&nbsp;&nbsp;&nbsp;</li>
+<li><b>详细地址：</b><?php echo $add['address_detail']; ?>&nbsp;&nbsp;&nbsp;</li>
+<li style="color: blue;cursor:hand"><span class='add-del' id =<?php echo $add['address_id'];?>>删除</span>
+&nbsp;&nbsp;<span class='add-edit' id =<?php echo $add['address_id'];?>> 编辑</span></li>
+</ul>
+<br/><br/>
+<ul class='add-hide' id= "add-hide-id<?php echo $add['address_id'] ;?>">
+<li><b>收件人：</b><input type="text" value=<?php echo $add['receiver_name']; ?> id="re-n" />&nbsp;&nbsp;&nbsp; </li>
+<li><b>联系号码：</b><input type="text" value=<?php echo $add['receiver_mobile'] ;?> id='re-m' />&nbsp;&nbsp;&nbsp;</li>
+<li><b>详细地址：</b><input type="text" value=<?php echo $add['address_detail']; ?> id ='re-d'/>&nbsp;&nbsp;&nbsp;</li>
+<li style="color: blue;cursor:hand" ><span class='add-save' id =<?php echo $add['address_id'];?>> 保存</span></li>
+</ul>
+</li>
+<br/><br/><br/>
+
+<?php endforeach; ?>
+</ul>
+</div>
+
+<div class='hides'>
+<ul >
+<li><b>收件人：</b><input type="text" id="res-n" /> </li><br/>
+<li><b>联系号码：</b><input type="text"  id='res-m' /></li><br/>
+<li><b>详细地址：</b><input type="text" id ='res-d'/></li><br/>
+<li style="color: blue;cursor:hand" ><span class='add-new'> 保存</span>&nbsp;&nbsp;<span class='add-cancle-new' > 取消</span>
+</li>
+</ul>
+</div>
+</div>
+
+<script src="/views/js/vip/address.js"></script>
