@@ -1,8 +1,11 @@
 <link rel ='stylesheet' href= '/views/css/item/list.css' type = "text/css">
+<link rel ='stylesheet' href= '/views/css/page.css' type = "text/css">
 
 <div class='cate-list' >
 
 <div class ='list-left'>
+
+
 </div>
 
 <div class="list-right">
@@ -21,7 +24,7 @@
 <?php 
     if (!empty($res['item_promo_price'])){
 	   echo '售价：<span style=text-decoration:line-through >'.$res['item_price'].
-	   '</span>&nbsp;&nbsp;'.$res['item_price'].'&nbsp;元';
+	   '</span>&nbsp;'.$res['item_price'].'&nbsp;元';
     }else {
 	   echo '售价：'.$res['item_price'].'&nbsp;元';
     }
@@ -31,5 +34,27 @@
 	<?php endforeach;?>
 	
 </ul>
+<div style="width:800px;float:right;" >
+<div class="tcdPageCode" ></div>
+<script src="/views/js/jquery.page.js"></script>
+<script>
+    var ids = "<?php echo $id; ?>";
+    $(".tcdPageCode").createPage({
+        pageCount:<?php echo $pageCount?>,
+        current:<?php echo $pageNum?>,
+        backFn:function(p){
+    		$.get('/item/item/lists',{
+    			page_num:p,
+    			idd:ids,
+    			page:1
+    			},
+    		function(data){
+    		     $('.body-divs').html(data);	
+    		});
+        }
+    });
+</script>
 </div>
 </div>
+</div>
+

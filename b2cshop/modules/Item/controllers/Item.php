@@ -16,8 +16,12 @@ class ItemController extends Controllers_Abstract {
     {
         $params = $this->getParams();
         $itemMapper = \Item\ItemModel::getInstance();
-        $item = $itemMapper->cateList($params);
-        $this->getView()->assign('items',$item);
+        $result = $itemMapper->cateList($params);
+        $this->getView()->assign('items',$result['data']);
+        $this->getView()->assign('pageCount',$result['page_count']);
+        $this->getView()->assign('pageNum',$result['page_num']);
+        $this->getView()->assign('id',$result['id']);
+        
     }
 }
 ?>

@@ -2,15 +2,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<title>沐子家</title>
-
+<title>rqf</title>
+<link rel ='stylesheet' href= '/views/css/home/index.css' type = "text/css">
 <link rel ='stylesheet' href= '/views/css/item/detail.css' type = "text/css">
 <body>
 <?php include_once PAGE . DS.'header.phtml';?>
 <?php include_once PAGE . DS.'search.phtml';?>
 <?php include_once PAGE . DS.'left.phtml';?>
 <div class = 'body-div'>
-
+<div class = 'body-divs'>
 <div class = 'goods-info'>
 <!-- 主图 -->
 <table class = 'goods-info' >
@@ -97,6 +97,15 @@ foreach ($imgArr as $img){
 
 
 <div class = 'goods-left'>
+在线客服<br/>
+工作时间：<?php //echo $config['work_time']; ?><br/>
+电话热线：<?php // echo $config['chat_phone']; ?>
+旺旺联系：<?php //echo $config['work_time']; ?><br/>
+
+QQ联系：<br/>
+<a href="tencent://message/?uin=917481860&Site=-&Menu=yes" target="_blank">QQ:917481860</a>
+<a href ="http://www.taobao.com/webww/?ver=1&status=2&touid=cntaobao独醉酒吧&siteid=cntaobao" >
+<img src="/views/images/wangwang.jpg" style="width:50px;heigth:50px;"/>dwa</a>
 </div>
 
 <div class = 'goods-right'>
@@ -115,9 +124,6 @@ echo $item['item_description'];
 </div>
 
 </div>
-
-
-
 
 
 </div>

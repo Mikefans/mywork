@@ -10,13 +10,7 @@ class Core
 	}
 	
 	public function setError($msg){
-	    header("location:/index/error?msg=$msg");die;
-// 	     $result = (object)array(
-//             'status' => 'error',
-//             'desc' => $msg
-//         );
-//         $result = json_encode($result, JSON_UNESCAPED_UNICODE);
-// 	    echo $result;die;
+	    header("location:/index/error?msg=$msg");exit();
 	}
 }
 

@@ -46,7 +46,7 @@ $(document).ready(function(){
 	  });
 	//留言
 	  $(".left-leave-mess").click(function(){
-		  $.get("/verify/public/logoust",
+		  $.get("/messageboard/message/list",
 				  {
 				  },
 				  function(data,status){

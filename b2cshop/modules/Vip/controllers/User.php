@@ -2,6 +2,7 @@
 class UserController extends Controllers_Abstract {
     
    public function infoAction(){
+       //$this->disableView();
        $session = \Yaf\Session::getInstance();
        $user = $session->m_user;
        $this->getView()->assign('user',$user);

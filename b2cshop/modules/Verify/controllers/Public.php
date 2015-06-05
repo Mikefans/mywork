@@ -4,7 +4,6 @@ class PublicController extends Controllers_Abstract {
     
    public function loginAction() 
    {
-      // $this->getView()->assign("content", "Hello World");
    }
    
    public function logoutAction(){
@@ -31,7 +30,6 @@ class PublicController extends Controllers_Abstract {
    }
    
    public function registerAction(){
-       echo 'hello world!';die;
        $this->disableView();
        $params = $this->getParams();
 	   $mapper = \Vip\UserModel::getInstance();

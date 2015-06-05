@@ -26,7 +26,7 @@ $(document).ready(function(){
 		$('.description-content').hide();
 		
 	});
-	$(".next-img-ul li").click(function(){
+	$(".next-img-ul li").mouseover(function(){
 		var srcs = $(this).attr('id');
 		$('.main-img').attr("src",srcs);  
 		
@@ -50,13 +50,8 @@ $(document).ready(function(){
 							   content : '加入成功',
 							   timeout:1,	  
 							});
-						  
 					  }else if (data.status == 'error') {
-						  ds.dialog({
-							   title : '消息提示',
-							   content : data.desc,
-							   timeout:2	  
-							});
+						  alert(data.desc);
 					  }else {
 						  ds.dialog({
 							   title : '消息提示',
@@ -82,11 +77,8 @@ $(document).ready(function(){
 					  if (data.status == 'success'){
 						  location.href= '/vip/order/order';
 					  }else if (data.status == 'error') {
-						  ds.dialog({
-							   title : '消息提示',
-							   content : data.desc,
-							   timeout:2	  
-							});
+						  if (data.desc == '请先登录，亲')
+							  alert(data.desc);
 					  }else {
 						  ds.dialog({
 							   title : '消息提示',

@@ -1,0 +1,59 @@
+
+<link rel ='stylesheet' href= '/views/css/messageboard/message.css' type = "text/css">
+<link rel ='stylesheet' href= '/views/css/page.css' type = "text/css">
+
+<div class= 'mess-list' width=100% >
+<h1 style="cursor: hand;color:blue"><span class='my-mess-div'>我的留言</span>&nbsp;&nbsp;<span class='leave-mess-div'>发布留言</span></h1>
+<div class='show-list' >
+
+<ul>
+<li><?php echo $mess['create_time']; ?></li>
+<li><?php echo '<span style=color:blue;>留言内容：</span>'; echo "<br/>"; echo $mess['message_content']; ?></li><br/><br/><br/>
+<?php foreach ($replys as $reply): ?>
+<li style="font-size: 12px;"> <?php echo $reply['create_time']; ?> </li>
+<li  style="font-size: 12px;"> <?php if ($reply['is_self'] == 1 ){
+                                	echo '<span style=color:blue;>自己回复：</span>';
+                                }else{
+                                	echo '<span style=color:blue;>管理员回复：</span>';
+                                }echo $reply['reply_content']; ?>  </li><br/>
+
+<?php endforeach; ?>
+<li style='text-align: right;color:blue;cursor:hand;' ><span class='send-reply'>回复</span></li>
+</ul>
+
+</div>
+
+<!-- 发布留言 -->
+<div class ='send-mess' style="display:none;">
+<br/><br/><br/>
+<textarea cols=80 rows=10  class= 'mess-content'></textarea><br/><br/>
+<span class ='commit-send'>提交</span>
+</div>
+
+<!-- 回复留言 -->
+<div class ='send-replys' style="display:none;">
+<br/><br/><br/>
+<textarea cols=80 rows=3 class= 'reply-content'></textarea><br/><br/>
+<span class ='commit-reply' style='text-align: right;color:blue;cursor:hand;' >提交</span>
+</div>
+<div class="tcdPageCode"></div>
+</div>
+
+
+<script src="/views/js/messageboard/message.js"></script>
+<script src="/views/js/jquery.page.js"></script>
+<script>
+    var messageId = <?php echo $mess['message_id']; ?>;
+    $(".tcdPageCode").createPage({
+        pageCount:<?php echo $pageCount?>,
+        current:<?php echo $pageNum?>,
+        backFn:function(p){
+    		$.get('/messageboard/message/reply',{
+    			page_num:p,
+    			},
+    		function(data){
+    		     $('.vip-right').html(data);	
+    		});
+        }
+    });
+</script>

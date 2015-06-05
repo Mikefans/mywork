@@ -16,8 +16,11 @@ class AuthPlugin extends Yaf\Plugin_Abstract
      * @var unknown
      */
     protected $_noAuthRoute = array(
-        "login",
-        "Verify"
+        "Login",
+        "Verify",
+        "Item",
+        "Index",
+        "Home",
     );
 
     public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
@@ -34,14 +37,15 @@ class AuthPlugin extends Yaf\Plugin_Abstract
             return true;
         }
         $isLoggedId = false;
-        $session = Yaf\Session::getInstance();
+        $session = \Yaf\Session::getInstance();
         if (isset($session->m_user) && ! empty($session->m_user)) {
             return true;
         }
         if (! $isLoggedId) {
-            $request->setModuleName("Verify");
-            $request->setControllerName("Public");
-            $request->setActionName("login");
+            \Core::setError('请先登录，亲');
+//             $request->setModuleName("Verify");
+//             $request->setControllerName("Public");
+//             $request->setActionName("login");
         }
     }
 }

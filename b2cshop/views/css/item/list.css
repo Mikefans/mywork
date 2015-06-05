@@ -14,8 +14,9 @@
 
 .item-list-li{
 	float:left;
-	width:200px;
+	width:190px;
 	heith:200px;
+	margin-left:0px;
 }
 
 .list-right li img{

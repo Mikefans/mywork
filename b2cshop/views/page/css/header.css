@@ -1,7 +1,8 @@
 .header {
 	background-color:#2875F4 ;
 	width:100%;
-	height:30px;
+	height:35px;
+	font-size:20px;
 }
 
 body a {
@@ -33,23 +34,25 @@ body li {
 
 .search-div {
 	width :100%;
-	height : 120px;
+	height : 140px;
 	margin-bottom : 0px;
 	margin-top : 0px; 
 	background-color:white;
 }
 .search-text {
 	float : left;
-	margin-top:30px;
+	margin-top:50px;
 	width:300px;
-	height : 30px;
+	height : 40px;
+	margin-left:200px;
+	font-size:21px;
 }
 .search-button {
 	float:left;
-	width : 40px;
-	height:30px;
-	margin-top :30px;
-	
+	width : 60px;
+	height:40px;
+	margin-top :50px;
+	margin-left:20px;
 }
 
 .logo-img{

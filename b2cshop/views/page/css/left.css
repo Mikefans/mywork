@@ -1,13 +1,13 @@
 .left {
 	width :100%;
-	height :30px;
+	height :35px;
 	background-color:#DC2233;
 	padding : 0;
 	margin-top:0px;;
 }
 .left-div{
 	width:1000px;
-	height: 30px;
+	height: 35px;
 	background-color:#DC2233;
 	margin-left : auto;
 	margin-right : auto;
@@ -29,12 +29,10 @@
 
 .left-div ul li{
 	cursor:hand;
-	border-left : 1px solid #6699cc; 
 	float : left;
-	font-size : 15pt;
-	font-weight:bold;
+	font-size : 17pt;
 	width : 120px;
-	height : 100%;
+	height : 35px;
 }
 
 .left-div ul li ul{

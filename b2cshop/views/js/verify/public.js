@@ -63,10 +63,10 @@ $(document).ready(function(){
 							   timeout:2	  
 							});
 						  
-					  }else if (typeof JSON.parse(data) == 'object') {
+					  }else if (data.status == 'error') {
 						  ds.dialog({
 							   title : '消息提示',
-							   content : JSON.parse(data).desc,
+							   content : data.desc,
 							   timeout:2	  
 							});
 					  }else {
@@ -99,12 +99,12 @@ $(document).ready(function(){
 					  },
 					  function(data,status){
 						  if (data.status == 'success'){
-//							  history.back();
-							  location.href("/home/index/index");
-						  }else if (typeof JSON.parse(data) == 'object') {
+							  history.back();
+//							  location.href= "/home/index/index";
+						  }else if (data.status == 'error') {
 							  ds.dialog({
 								   title : '消息提示',
-								   content : JSON.parse(data).desc,
+								   content : data.desc,
 								   timeout:2	  
 								});
 						  }else {
@@ -116,10 +116,6 @@ $(document).ready(function(){
 						  }
 					  });
 		  }
-  });
-  
-  $('.ur').blur(function(){
-
   });
   
 });

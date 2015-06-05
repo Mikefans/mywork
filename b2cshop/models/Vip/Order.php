@@ -69,7 +69,9 @@ class OrderModel extends \Mapper\Abstracts
         $status = isset($params['status']) ? (int)$params['status'] : '';
     	$pageNum = isset($params['page_num']) ? (int)$params['page_num'] : 1;
     	$pageSize = isset($params['page_size']) ? (int)$params['page_size'] : 5;
-    	
+
+    	$session = \Yaf\Session::getInstance();
+    	$user = $session->m_user;
     	if (!empty($status)){
     	    if ($status == -1){
     	    	$status = 0;
@@ -79,7 +81,8 @@ class OrderModel extends \Mapper\Abstracts
     		));
     	}
     	$result = $this->where(array(
-    		'vip_delete' => 0
+    		'vip_delete' => 0,
+    	    'user_id' => $user['user_id']
     	))
     	       ->skip(($pageNum-1) * $pageSize)
     	       ->limit($pageSize)

@@ -66,11 +66,11 @@
 	margin-top:50px;
 	float:left;
 	width:180px;
-	height:100%;
-	background-color:blue;
+	height:400%;
+	background-color:white;
 }
 
-.goods-right{
+.goods-right{ 
 	margin-top:50px;
 	float:right;
 	width:800px;

@@ -65,15 +65,28 @@ class ItemModel extends \Mapper\Abstracts
         $pageSize = isset($params['page_size']) ? (int)$params['page_size'] : 10;
     	$nextCate = isset($params['cate_next']) ? $params['cate_next'] : '';
     	$cateId = isset($params['cate_id']) ? $params['cate_id'] : '';
+    	if (isset($params['page'])){
+    		$id = $params['idd'];
+    		$flag = substr($id,0,2);
+//     		echo $flag;die;
+    		if ($flag == 'ne'){
+    			$nextCate = (int)substr($id,2);
+    		}else{
+    			$cateId = (int)substr($id,2);
+    		}
+    	}
+//     	echo $cateId;die;
     	$this->where(array(
     		'item_status' => 1,
     	    'is_delete' => 0
     	));
     	if ($nextCate){
+    	    $id = 'ne'.$nextCate;
     		$this->where(array(
     			'cate_id_before' => $nextCate
     		));
     	}else {
+    	    $id = 'fa'.$cateId;
     		$this->where(array(
     			'cate_id' => $cateId,
     		))
@@ -85,7 +98,15 @@ class ItemModel extends \Mapper\Abstracts
     	               ->skip(($pageNum -1 ) * $pageSize)
     	               ->limit($pageSize)
     	               ->get();
-    	return $result;
+    	$totalRecords = $this->count();
+    	return array(
+    	    'data' => $result,
+    	    'page_count' => ceil($totalRecords / $pageSize),
+    	    'page_num' => $pageNum,
+    	    'id' => $id
+    	);
+    	
+    	
     }
 }
 

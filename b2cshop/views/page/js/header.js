@@ -71,7 +71,36 @@ $(document).ready(function(){
   });
 //会员中心
   $(".vip").click(function(){
-	 location.href='/vip/index/index';
+	  $.get("/vip/user/info",
+			  {
+			  },
+			  function(data,status){
+				  if (data.status == 'error')
+				{
+					  alert(data.desc);
+					 
+				}else{
+					 location.href='/vip/index/index';
+				}
+			  });
+	
+  });
+  
+//购物车
+  $(".car").click(function(){
+	  $.get("/vip/user/info",
+			  {
+			  },
+			  function(data,status){
+				  if (data.status == 'error')
+				{
+					  alert(data.desc);
+					 
+				}else{
+					 location.href='/vip/index/index';
+				}
+			  });
+	
   });
 });
 
